@@ -22,11 +22,11 @@
             <div class="col-md-10"></div>
             <div class="col-md-1">
                 {% if all_completed %}
-                    <form method="post" action="{{ url_for('quiz') }}">
-                        <button type="submit" class="btn-hero" , id="quiz-btn">take quiz</button>
-                    </form>
+                  <form method="post" action="{{ url_for('quiz_start') }}">
+                    <button type="submit" class="btn-hero">Take Quiz</button>
+                  </form>
                 {% endif %}
-            </div>
+              </div>
         </div>
         <h1 class="map-title">Realm Map</h1>
         <div id="loader">Loading...</div>
