@@ -311,6 +311,9 @@ def quiz_start():
 @app.route("/quiz/<int:step>", methods=["GET", "POST"])
 def quiz_step(step):
     total = len(quiz_questions)
+    raw_q = quiz_questions.get(step)
+    if not raw_q:
+        return redirect(url_for("map_view"))
     q = quiz_questions.get(step)
     if not q:
         return redirect(url_for("map_view"))
@@ -326,8 +329,8 @@ def quiz_step(step):
             choice = -1
 
         # 1) multiple choice
-        if "answer" in q:
-            if choice == q["answer"]:
+        if hasattr(q, "answer"):
+            if choice == q.answer:
                 show_feedback = True
         # 2) imagePick
         elif q.get("type") == "imagePick":
