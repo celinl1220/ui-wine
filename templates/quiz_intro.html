@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Final Quiz</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+  <a href="{{ url_for('map_view') }}" class="btn btn-hero">← map</a>
+
+  <div class="quiz-intro">
+    <h1>Final Quiz</h1>
+    <p>Unlock the secrets of wine by pairing the right varietal to each dish.</p>
+    <form method="post" action="{{ url_for('quiz_start') }}">
+      <button type="submit" class="btn btn-hero">Start Quiz</button>
+    </form>
+  </div>
+</body>
+</html>
