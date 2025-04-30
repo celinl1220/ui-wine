@@ -29,6 +29,8 @@
 
 html, body {
     height: 100%;
+    width: 100%;
+    overflow-x: hidden;
     background-color: var(--color-base) !important;
     font-family: 'Inter', sans-serif;
     color: var(--color-dark-grey);
