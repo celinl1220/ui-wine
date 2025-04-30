@@ -445,7 +445,7 @@ def next_food(varietal_name):
     foods = activity3[varietal_name]
     index = session["food_index"]
 
-    if index == len(foods):
+    if index >= len(foods):
         return jsonify({
             "done": True
         })
