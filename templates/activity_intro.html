@@ -16,7 +16,7 @@
             <div class="col-md-1">
                 <!-- Back to map button -->
                 <form method="post" action="{{ url_for('map') }}">
-                    <button type="submit" class="btn-hero">map</button>
+                    <button type="submit" class="btn-hero btn-back">map</button>
                 </form>
             </div>
             <div class="col-md-3"></div>
@@ -35,12 +35,12 @@
             <div class="col-md-1">
                 {% if activity_number == 1 %}
                 <form method="post" action="{{ url_for('varietal_intro', varietal_name=varietal_url) }}">
-                    <button type="submit" class="btn-hero">back</button>
+                    <button type="submit" class="btn-hero btn-back">back</button>
                 </form>
                 {% else %}
                 <form method="post"
                     action="{{ url_for('start_activity', varietal_name=varietal_url, activity_number=activity_number - 1) }}">
-                    <button type="submit" class="btn-hero">back</button>
+                    <button type="submit" class="btn-hero btn-back">back</button>
                 </form>
                 {% endif %}
             </div>

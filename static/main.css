@@ -79,16 +79,11 @@ h3, p, .prompt {
   background: #99577a; /* slightly lightened accent */
 }
 
-/* map & nav back buttons */
-.btn-back {
-  background: var(--color-accent);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
+/* map and nav back buttons */
+.btn-hero.btn-back {
   padding: 0.5rem 1rem;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 300;
+  font-size: 0.7rem;
 }
 
 /*--------------------------------------
