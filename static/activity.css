@@ -1,3 +1,164 @@
 #continue-btn {
     display: none;
-}
+}/* Drag And Drop Styling -- START */ 
+
+.notes-grid {
+    gap: 10px;
+    padding: 20px;
+  }
+  
+  .drag-item {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    cursor: grab;
+    transition: transform 0.2s ease;
+  }
+  
+  .drag-item.dragging {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+  
+  .drop-zone {
+    border: 3px dashed #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    min-height: 200px;
+  }
+  
+  .drop-zone.highlight {
+    border-color: #6c757d;
+  }
+  
+  .correct-notes img {
+    width: 50px;
+    height: 50px;
+    margin: 4px;
+  }
+  
+  .sparkle {
+    animation: sparkle 0.5s ease;
+  }
+  
+  @keyframes sparkle {
+    0% { box-shadow: 0 0 0px gold; }
+    50% { box-shadow: 0 0 20px gold; }
+    100% { box-shadow: 0 0 0px gold; }
+  }
+  
+  .summary-note {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    z-index: 10;
+  }
+  
+  .summary-container {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  
+  /* Fade-in animation */
+  .fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  /* ✖ feedback */
+  .x-feedback-drag {
+    font-size: 3rem;
+    color: red;
+    z-index: 999;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  
+/* Drag And Drop Styling -- END */ 
+
+/* Color Match Styling -- START */ 
+
+.glass-options {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+  
+  .wine-glass {
+    position: relative;
+    width: 22%; /* 4 per row, with spacing */
+    max-width: 140px;
+    aspect-ratio: 1 / 1.5;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  
+  .glass-base {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .glass-fill {
+    position: absolute;
+    top: 38%;
+    left: 20%;
+    width: 60%;
+    height: 35%;
+    border-radius: 50%;
+    z-index: 2;
+    opacity: 0.85;
+    pointer-events: auto;
+  }
+  
+  .wine-glass img,
+  .wine-glass .glass-fill {
+    pointer-events: none; /* prevent image blocking click */
+  }
+  
+  .glass-fill {
+    pointer-events: auto; /* only the colored fill is clickable */
+  }
+  
+  .correct-glow {
+    animation: sparkle 0.6s ease;
+    box-shadow: 0 0 10px 3px gold;
+    border-radius: 50%;
+  }
+  
+  @keyframes sparkle {
+    from { box-shadow: 0 0 0px gold; }
+    to { box-shadow: 0 0 10px 5px gold; }
+  }
+  
+  .wine-glass {
+    position: relative;
+    width: 22%;
+    max-width: 140px;
+    aspect-ratio: 1 / 1.5;
+    cursor: pointer;
+    flex-shrink: 0;
+    overflow: visible; /* ✅ allow ✖ to show outside */
+  }
+  
+  .x-feedback-match {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    color: red;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+ 
+  /* Color Match Styling -- END */
