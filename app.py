@@ -4,8 +4,10 @@ app = Flask(__name__)
 
 # Set up the secret key for session management
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_secret_key")
+app.jinja_env.globals.update(enumerate=enumerate)
 
 varietals = ["riesling", "sauvignon_blanc", "chardonnay", "pinot_noir", "cabernet_sauvignon"]
+TOTAL_VARIETALS = len(varietals)
 
 varietal_data = {
     "riesling": {
@@ -29,7 +31,7 @@ varietal_data = {
         }
     },
     "sauvignon_blanc": {
-        "title": "Welcome to the Valley of Sauvignon Blanc",
+        "title": "Welcome to the Valley of Sauvignon Blanc!",
         "descriptions": ["Sauvignon Blanc is fresh, green, and unapologetically zesty.", "Known for its high acidity and bold aromatics, this wine brings to mind citrus groves, cut grass, and cool ocean breezes.", "It's sharp, sassy, and always refreshing."],
         "varietal": "Sauvignon Blanc",
         "varietal_url": "sauvignon_blanc",
@@ -49,7 +51,7 @@ varietal_data = {
         }
     },
     "chardonnay": {
-        "title": "Welcome to the Golden Hills of Chardonnay",
+        "title": "Welcome to the Golden Hills of Chardonnay!",
         "descriptions": ["Chardonnay is smooth, versatile, and effortlessly elegant.", "Think ripe pear, creamy vanilla, and a hint of toasted oak.", "It’s rich yet balanced—great for those who enjoy a little luxury in every sip."],
         "varietal": "Chardonnay",
         "varietal_url": "chardonnay",
@@ -69,7 +71,7 @@ varietal_data = {
         }
     },
     "pinot_noir": {
-        "title": "Welcome to the Forest of Pinot Noir",
+        "title": "Welcome to the Forest of Pinot Noir!",
         "descriptions": ["Pinot Noir is delicate, earthy, and quietly complex.", "Think ripe cherry, soft spice, and subtle floral notes.", "It's graceful and layered—perfect for those who appreciate a softer kind of depth."],
         "varietal": "Pinot Noir",
         "varietal_url": "pinot_noir",
@@ -89,7 +91,7 @@ varietal_data = {
         }
     },
     "cabernet_sauvignon": {
-        "title": "Welcome to the Caverns of Cabernet Sauvignon",
+        "title": "Welcome to the Caverns of Cabernet Sauvignon!",
         "descriptions": ["Cabernet Sauvignon is bold, structured, and unapologetically full-bodied.", "Think blackcurrant, tobacco, and a whisper of cedar.", "It's powerful and intense—for those who like their wines with serious presence."],
         "varietal": "Cabernet Sauvignon",
         "varietal_url": "cabernet_sauvignon",
@@ -128,6 +130,38 @@ activities = {
     }
 }
 
+
+quiz_questions = {
+  1: { 
+    "title": "Spicy Thai Curry",
+    "prompt": 'Pairing Request: "I need something to pair with my spicy Thai curry."',
+    "choices": ["Chardonnay","Cabernet Sauvignon","Riesling","Sauvignon Blanc","Pinot Noir"],
+    "answer": 2,
+    "explanation": "due to its slight sweetness and refreshing acidity."
+  },
+  2: {
+    "title": "Pick Your Riesling",
+    "customer": 1,              
+    "prompt": "Choose the glass that matches the Riesling you picked earlier.",
+    "type": "images",
+    "images": [               
+      "images/glass1.png",
+      "images/glass2.png",
+      "images/glass3.png",
+      "images/glass4.png"
+    ],
+    "answer": 0,
+    "explanation": "That pale, straw-yellow hue is your Riesling."
+  },
+  3: {
+    "title": "Creamy Chicken Alfredo",
+    "prompt": 'Pairing Request: "I\'m having a creamy chicken Alfredo tonight. What should I drink?"',
+    "choices": ["Chardonnay","Cabernet Sauvignon","Riesling","Sauvignon Blanc","Pinot Noir"],
+    "answer": 0
+  },
+  # …etc…
+}
+
 # 1) Secret key for sessions
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_secret_key")
 
@@ -137,8 +171,8 @@ def home():
     return render_template("home.html")
 
 # 2) Map screen
-@app.route("/map", methods=["GET", "POST"])
-def map():
+@app.route("/map", methods=["GET","POST"])
+def map_view():
     progress = session.get("progress", [])
     all_completed = set(progress) >= set(varietals)
     return render_template(
@@ -207,27 +241,65 @@ def start_activity(varietal_name, activity_number):
 # When an activity is completed, update the session
 @app.route("/complete_varietal/<varietal_name>", methods=["POST"])
 def complete_varietal(varietal_name):
-    varietal = varietal_data.get(varietal_name.lower())
     if varietal_name not in varietals:
         return "Varietal not found", 404
 
-    # Get progress or initialize it
+    # Get (or init) the list of completed varietals
     progress = session.get("progress", [])
 
-    # if completed varietal is not in progress
     if varietal_name not in progress:
-        progress.append(varietal_name)  # add varietal to progress
-        session["progress"] = progress  # update session progress variable
+        progress.append(varietal_name)
+        session["progress"] = progress
+
+    # back to the map overview
+    return redirect(url_for("map"))
+
+@app.route("/quiz", methods=["GET", "POST"])
+def quiz_start():
+    progress = session.get("progress", [])
+    # block quiz until all varietals are completed
+    if len(progress) < len(varietals):
+        return redirect(url_for("map"))
+
+    if request.method == "POST":
+        # kick off at step 1
+        session["quiz_step"] = 1
+        return redirect(url_for("quiz_step", step=1))
+
+    return render_template("quiz_intro.html")
+
+@app.route("/quiz/<int:step>", methods=["GET", "POST"])
+def quiz_step(step):
+    total = len(quiz_questions)
+    q = quiz_questions.get(step)
+    if not q:
+        # invalid step → back to map
+        return redirect(url_for("map_view"))
+
+    show_feedback = False
+    error = None
+    selected = None
+
+    if request.method == "POST":
+        try:
+            selected = int(request.form.get("choice", -1))
+        except ValueError:
+            selected = -1
+
+        if selected == q["answer"]:
+            show_feedback = True
+        else:
+            error = "Try again!"
 
     return render_template(
-        "activity_complete.html",
-        varietal_name=varietal["varietal"],
-        varietal_url=varietal["varietal_url"],
+        "quiz_step.html",
+        step=step,
+        total=total,
+        q=q,
+        show_feedback=show_feedback,
+        selected=selected,
+        error=error,
     )
-
-@app.route("/quiz", methods=["POST"])
-def quiz():
-    return "QUIZ!!!"
 
 if __name__ == '__main__':
    app.run(debug = True, port=5001)
