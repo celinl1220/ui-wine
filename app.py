@@ -31,7 +31,7 @@ varietal_data = {
         }
     },
     "sauvignon_blanc": {
-        "title": "Welcome to the Valley of Sauvignon Blanc!",
+        "title": "Welcome to the Valley of Sauvignon Blanc",
         "descriptions": ["Sauvignon Blanc is fresh, green, and unapologetically zesty.", "Known for its high acidity and bold aromatics, this wine brings to mind citrus groves, cut grass, and cool ocean breezes.", "It's sharp, sassy, and always refreshing."],
         "varietal": "Sauvignon Blanc",
         "varietal_url": "sauvignon_blanc",
@@ -51,7 +51,7 @@ varietal_data = {
         }
     },
     "chardonnay": {
-        "title": "Welcome to the Golden Hills of Chardonnay!",
+        "title": "Welcome to the Golden Hills of Chardonnay",
         "descriptions": ["Chardonnay is smooth, versatile, and effortlessly elegant.", "Think ripe pear, creamy vanilla, and a hint of toasted oak.", "It’s rich yet balanced—great for those who enjoy a little luxury in every sip."],
         "varietal": "Chardonnay",
         "varietal_url": "chardonnay",
@@ -71,7 +71,7 @@ varietal_data = {
         }
     },
     "pinot_noir": {
-        "title": "Welcome to the Forest of Pinot Noir!",
+        "title": "Welcome to the Forest of Pinot Noir",
         "descriptions": ["Pinot Noir is delicate, earthy, and quietly complex.", "Think ripe cherry, soft spice, and subtle floral notes.", "It's graceful and layered—perfect for those who appreciate a softer kind of depth."],
         "varietal": "Pinot Noir",
         "varietal_url": "pinot_noir",
@@ -91,7 +91,7 @@ varietal_data = {
         }
     },
     "cabernet_sauvignon": {
-        "title": "Welcome to the Caverns of Cabernet Sauvignon!",
+        "title": "Welcome to the Caverns of Cabernet Sauvignon",
         "descriptions": ["Cabernet Sauvignon is bold, structured, and unapologetically full-bodied.", "Think blackcurrant, tobacco, and a whisper of cedar.", "It's powerful and intense—for those who like their wines with serious presence."],
         "varietal": "Cabernet Sauvignon",
         "varietal_url": "cabernet_sauvignon",
@@ -146,17 +146,113 @@ activity3 = {
         }, {
             "image": "thai_curry.png",
             "correct_answer": "good",
-            "explanation": "The wine's sweetness balances the heat and spiciness of the curry."
+            "explanation": "Riesling's sweetness balances the heat and spiciness of the curry."
         }, {
             "image": "brie_cheese.png",
             "correct_answer": "good",
-            "explanation": "The wine's acidity cuts through the richness of the cheese, enhancing the flavor."
+            "explanation": "Riesling's acidity cuts through the richness of the cheese, enhancing the flavor."
         }, {
             "image": "pickles.png",
             "correct_answer": "meh",
             "explanation": "The acidity of pickles may overpower the delicate flavors of Riesling."
-        }
-    ]
+    }], "sauvignon_blanc": [{
+        "image": "tomato_pasta.png",
+        "correct_answer": "meh",
+        "explanation": "Tomato-heavy sauces like marinara clash with the acidity of Sauvignon Blanc."
+    }, {
+        "image": "goat_cheese.png",
+        "correct_answer": "good",
+        "explanation": "The tangy, creamy goat cheese pairs perfectly with the crisp acidity of Sauvignon Blanc."
+    }, {
+        "image": "dark_chocolate.png",
+        "correct_answer": "meh",
+        "explanation": "The bitterness of dark chocolate doesn't complement Sauvignon Blanc's acidity and grassy flavors."
+    }, {
+        "image": "green_vegetables.png",
+        "correct_answer": "good",
+        "explanation": "The wine's bright acidity complements the earthy flavors of green vegetables like grilled asparagus."
+    }, {
+        "image": "lemon_herb_chicken.png",
+        "correct_answer": "good",
+        "explanation": "The citrus notes in the wine enhance the lemony flavors of the chicken."
+    }, {
+        "image": "cream_pasta.png",
+        "correct_answer": "meh",
+        "explanation": "The richness of cream pasta dishes can overwhelm the freshness of Sauvignon Blanc."
+    }], "chardonnay": [{
+        "image": "grilled_salmon.png",
+        "correct_answer": "good",
+        "explanation": "The wine’s creamy texture and moderate acidity complement the rich flavor of grilled salmon."
+    }, {
+        "image": "pickles.png",
+        "correct_answer": "meh",
+        "explanation": "The sharp acidity of pickles clashes with Chardonnay's rounder, buttery profile."
+    }, {
+        "image": "lobster_butter.png",
+        "correct_answer": "good",
+        "explanation": "Buttery lobster highlights the full-bodied richness of Chardonnay beautifully."
+    }, {
+        "image": "blue_cheese.png",
+        "correct_answer": "meh",
+        "explanation": "Strong blue cheese overpowers the subtler flavors of Chardonnay."
+    }, {
+        "image": "cream_pasta.png",
+        "correct_answer": "good",
+        "explanation": "Cream sauces like creamy alfredo sauce pair well with Chardonnay's texture and mild oak influence."
+    }, {
+        "image": "spicy_mexican_food.png",
+        "correct_answer": "meh",
+        "explanation": "Spicy Mexican food can amplify the alcohol and overshadow Chardonnay's balance."
+    }], "pinot_noir": [{
+        "image": "grilled_salmon.png",
+        "correct_answer": "good",
+        "explanation": "Pinot Noir's light body and fruitiness work well with the richness of salmon."
+    }, {
+        "image": "spicy_mexican_food.png",
+        "correct_answer": "meh",
+        "explanation": "Spicy foods can overwhelm Pinot Noir's delicate flavor profile."
+    }, {
+        "image": "roast_chicken.png",
+        "correct_answer": "good",
+        "explanation": "Pinot Noir's earthiness and acidity match the savory notes in roasted chicken."
+    }, {
+        "image": "sushi.png",
+        "correct_answer": "meh",
+        "explanation": "The light, delicate flavor of sushi doesn't stand up to the complexity of Pinot Noir."
+    }, {
+        "image": "mushroom_risotto.png",
+        "correct_answer": "good",
+        "explanation": "Earthy mushrooms bring out Pinot Noir's subtle, savory depth."
+    }, {
+        "image": "thai_curry.png",
+        "correct_answer": "meh",
+        "explanation": "The intense spice of Thai curry clashes with Pinot Noir's gentle structure."
+    }
+    ], "cabernet_sauvignon": [{
+        "image": "shrimp_scampi.png",
+        "correct_answer": "meh",
+        "explanation": "Shrimp scampi’s delicate flavors are overwhelmed by the bold intensity of Cabernet."
+    }, {
+        "image": "ribeye_steak.png",
+        "correct_answer": "good",
+        "explanation": "Cabernet's tannins are perfect for cutting through the fat of a juicy ribeye steak."
+    }, {
+        "image": "salad.png",
+        "correct_answer": "meh",
+        "explanation": "Light, acidic salads don't offer enough substance for Cabernet's intensity."
+    }, {
+        "image": "cheddar_cheese.png",
+        "correct_answer": "good",
+        "explanation": "Cheddar cheese's sharpness and texture pair well with the bold tannins of Cabernet."
+    }, {
+        "image": "grilled_lamb_chops.png",
+        "correct_answer": "good",
+        "explanation": "The richness of grilled lamb chops is a great match for the structure and depth of Cabernet."
+    }, {
+        "image": "soft_cheese.png",
+        "correct_answer": "meh",
+        "explanation": "The creamy, mild nature of soft cheese doesn’t stand up to the bold intensity of Cabernet."
+    }]
 }
 
 
