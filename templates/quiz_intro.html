@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Final Quiz</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-</head>
-<body>
-  <a href="{{ url_for('map_view') }}" class="btn btn-hero">← map</a>
+{% extends "base.html" %}
 
-  <div class="quiz-intro">
-    <h1>Final Quiz</h1>
-    <p>Unlock the secrets of wine by pairing the right varietal to each dish.</p>
+{% block title %}Final Quiz — Vine Voyage{% endblock %}
+
+{% block content %}
+  <div class="text-center py-5">
+    <h1 class="display-4 mb-3">Final Quiz</h1>
+    <p class="lead mb-4">
+      Unlock the secrets of wine by pairing the right varietal to each dish,
+      choosing the correct color, and describing its notes.
+    </p>
     <form method="post" action="{{ url_for('quiz_start') }}">
-      <button type="submit" class="btn btn-hero">Start Quiz</button>
+      <button type="submit" class="btn btn-hero btn-lg">
+        Start Quiz
+      </button>
     </form>
   </div>
-</body>
-</html>
+{% endblock %}
