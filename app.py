@@ -212,7 +212,7 @@ def home():
 
 # 2) Map screen
 @app.route("/map", methods=["GET","POST"])
-def map_view():
+def map():
     progress = session.get("progress", [])
     all_completed = set(progress) >= set(varietals)
     return render_template(
@@ -313,10 +313,10 @@ def quiz_step(step):
     total = len(quiz_questions)
     raw_q = quiz_questions.get(step)
     if not raw_q:
-        return redirect(url_for("map_view"))
+        return redirect(url_for("map"))
     q = quiz_questions.get(step)
     if not q:
-        return redirect(url_for("map_view"))
+        return redirect(url_for("map"))
 
     show_feedback = False
     error = None

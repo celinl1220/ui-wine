@@ -2,8 +2,15 @@
     visibility: hidden;
 }
 
+.varietal-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+    pointer-events: none;
+}
+
 .take-quiz-form {
     position: absolute;
     top: 1rem;
     right: 1rem;
-  }
+}
