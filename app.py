@@ -166,7 +166,40 @@ quiz_questions = {
         ],
         "max_attempts": 4
     },
-    # …other questions…
+    4: {
+        "title": "Creamy Chicken Alfredo",
+        "prompt": 'Pairing Request: "I\'m having a creamy chicken Alfredo pasta tonight. What should I drink?"',
+        "choices": ["Chardonnay","Cabernet Sauvignon","Riesling","Sauvignon Blanc","Pinot Noir"],
+        "answer": 0,
+        "explanation": "Its buttery, oaky flavor complements the creaminess of the dish."
+    },
+    5: {
+        "title": "Pick Your Chardonnay",
+        "prompt": "Choose the glass that matches the Chardonnay you picked earlier.",
+        "type": "imagePick",
+        "images": [
+            {"src": "glass5.png", "correct": False},
+            {"src": "glass6.png", "correct": False},
+            {"src": "glass7.png", "correct": False},
+            {"src": "glass8.png", "correct": True},
+        ],
+    },
+    6: {
+        "title": "Description Request",
+        "prompt": '"What are the flavors like in the Chardonnay?"',
+        "type": "dragAndDrop",
+        "draggables": [
+            {"label": "green apple",  "image": "notes/green_apple.png",  "correct": True},
+            {"label": "butter",       "image": "notes/butter.png",       "correct": True},
+            {"label": "bell pepper",  "image": "notes/bell_pepper.png",  "correct": False},
+            {"label": "pineapple",    "image": "notes/pineapple.png",    "correct": True},
+            {"label": "licorice",     "image": "notes/licorice.png",     "correct": False},
+            {"label": "toasted almond","image":"notes/toasted_almond.png","correct": True},
+            {"label": "black pepper", "image": "notes/black_pepper.png", "correct": False},
+            {"label": "vanilla",      "image": "notes/vanilla.png",      "correct": False},
+        ],
+        "max_attempts": 4
+    },
 }
 
 # 1) Secret key for sessions
@@ -324,6 +357,10 @@ def quiz_step(step):
         else:
             show_feedback = True
 
+    customer_idx = ((step - 1) // 3) + 1
+    group_start = (customer_idx - 1) * 3 + 1
+    customer_dish = quiz_questions[group_start]["title"]
+
     return render_template(
         "quiz_step.html",
         step=step,
@@ -331,7 +368,11 @@ def quiz_step(step):
         q=q,
         show_feedback=show_feedback,
         error=error,
+        customer_dish=customer_dish, 
     )
+
+if __name__ == '__main__':
+   app.run(debug = True, port=5001)
 
 if __name__ == '__main__':
    app.run(debug = True, port=5001)
