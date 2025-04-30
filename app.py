@@ -17,6 +17,7 @@ varietal_data = {
             1: {
                 "hint": "Riesling is never heavy or brooding. Think juicy fruits, fresh blooms, and zippy citrus.",
                 "hint_short": "Think juicy fruits, fesh blooms, and zippy citrus.",
+                "correct_notes": ["lemon", "peach", "apple"],
             },
             2: {
                 "hint": "This wine is typically pale straw to light gold.",
@@ -37,6 +38,7 @@ varietal_data = {
             1: {
                 "hint": "Picture green herbs, tropical bursts, and a splash of sharp citrus.",
                 "hint_short": "Picture green herbs, tropical bursts, and a splash of sharp citrus.",
+                "correct_notes": ["lemon", "peach", "apple"],
             },
             2: {
                 "hint": "This wine is typically pale straw with greenish glints.",
@@ -57,6 +59,7 @@ varietal_data = {
             1: {
                 "hint": "TO UPDATE WITH CHARDONNAY",
                 "hint_short": "TO UPDATE WITH CHARDONNAY",
+                "correct_notes": ["lemon", "peach", "apple"],
             },
             2: {
                 "hint": "This wine ranges from pale gold to rich, buttery yellow.",
@@ -77,6 +80,7 @@ varietal_data = {
             1: {
                 "hint": "TO UPDATE WITH PINOT NOIR",
                 "hint_short": "TO UPDATE WITH PINOT NOIR",
+                "correct_notes": ["lemon", "peach", "apple"],
             },
             2: {
                 "hint": "This wine is typically light ruby to translucent garnet.",
@@ -97,6 +101,7 @@ varietal_data = {
             1: {
                 "hint": "TO UPDATE WITH CABERNET",
                 "hint_short": "TO UPDATE WITH CABERNET",
+                "correct_notes": ["lemon", "peach", "apple"],
             },
             2: {
                 "hint": "This wine is deep ruby to inky purple, often nearly opaque.",
@@ -201,7 +206,8 @@ def start_activity(varietal_name, activity_number):
         activity_number=activity_number,
         activity_name=activity["name"],
         varietal_url=varietal["varietal_url"],
-        hint=varietal_activities["hint_short"]
+        hint=varietal_activities["hint_short"], 
+        correct_notes=varietal_activities.get("correct_notes", []),
     )
 
 # When an activity is completed, update the session

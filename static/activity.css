@@ -1,0 +1,80 @@
+/* Drag And Drop Styling -- START */ 
+
+.notes-grid {
+    gap: 10px;
+    padding: 20px;
+  }
+  
+  .drag-item {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    cursor: grab;
+    transition: transform 0.2s ease;
+  }
+  
+  .drag-item.dragging {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+  
+  .drop-zone {
+    border: 3px dashed #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    min-height: 200px;
+  }
+  
+  .drop-zone.highlight {
+    border-color: #6c757d;
+  }
+  
+  .correct-notes img {
+    width: 50px;
+    height: 50px;
+    margin: 4px;
+  }
+  
+  .sparkle {
+    animation: sparkle 0.5s ease;
+  }
+  
+  @keyframes sparkle {
+    0% { box-shadow: 0 0 0px gold; }
+    50% { box-shadow: 0 0 20px gold; }
+    100% { box-shadow: 0 0 0px gold; }
+  }
+  
+  .summary-note {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    z-index: 10;
+  }
+  
+  .summary-container {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  
+  /* Fade-in animation */
+  .fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  /* ✖ feedback */
+  .x-feedback {
+    font-size: 3rem;
+    color: red;
+    z-index: 999;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  
+/* Drag And Drop Styling -- END */ 
