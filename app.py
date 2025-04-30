@@ -132,34 +132,41 @@ activities = {
 
 
 quiz_questions = {
-  1: { 
-    "title": "Spicy Thai Curry",
-    "prompt": 'Pairing Request: "I need something to pair with my spicy Thai curry."',
-    "choices": ["Chardonnay","Cabernet Sauvignon","Riesling","Sauvignon Blanc","Pinot Noir"],
-    "answer": 2,
-    "explanation": "due to its slight sweetness and refreshing acidity."
-  },
-  2: {
-    "title": "Pick Your Riesling",
-    "customer": 1,              
-    "prompt": "Choose the glass that matches the Riesling you picked earlier.",
-    "type": "images",
-    "images": [               
-      "images/glass1.png",
-      "images/glass2.png",
-      "images/glass3.png",
-      "images/glass4.png"
-    ],
-    "answer": 0,
-    "explanation": "That pale, straw-yellow hue is your Riesling."
-  },
-  3: {
-    "title": "Creamy Chicken Alfredo",
-    "prompt": 'Pairing Request: "I\'m having a creamy chicken Alfredo tonight. What should I drink?"',
-    "choices": ["Chardonnay","Cabernet Sauvignon","Riesling","Sauvignon Blanc","Pinot Noir"],
-    "answer": 0
-  },
-  # …etc…
+    1: {
+        "title": "Spicy Thai Curry",
+        "prompt": 'Pairing Request: "I need something to pair with my spicy Thai curry."',
+        "choices": ["Chardonnay","Cabernet Sauvignon","Riesling","Sauvignon Blanc","Pinot Noir"],
+        "answer": 2,
+        "explanation": "due to its slight sweetness and refreshing acidity."
+    },
+    2: {
+        "title": "Pick Your Riesling",
+        "prompt": "Choose the glass that matches the Riesling you picked earlier.",
+        "type": "imagePick",
+        "images": [
+            {"src": "glass1.png", "correct": True},
+            {"src": "glass2.png", "correct": False},
+            {"src": "glass3.png", "correct": False},
+            {"src": "glass4.png", "correct": False},
+        ]
+    },
+    3: {
+        "title": "Description Request",
+        "prompt": "Can you tell me what to expect from the Riesling with my curry?",
+        "type": "dragAndDrop",
+        "draggables": [
+            {"label": "lime",      "image": "notes/lime.png",      "correct": True},
+            {"label": "lemon",     "image": "notes/lemon.png",     "correct": True},
+            {"label": "mushroom",  "image": "notes/mushroom.png",  "correct": False},
+            {"label": "pineapple", "image": "notes/pineapple.png", "correct": True},
+            {"label": "grass",     "image": "notes/grass.png",     "correct": False},
+            {"label": "cedar",     "image": "notes/cedar.png",     "correct": False},
+            {"label": "apricot",   "image": "notes/apricot.png",   "correct": True},
+            {"label": "vanilla",   "image": "notes/vanilla.png",   "correct": False},
+        ],
+        "max_attempts": 4
+    },
+    # …other questions…
 }
 
 # 1) Secret key for sessions
@@ -273,23 +280,49 @@ def quiz_step(step):
     total = len(quiz_questions)
     q = quiz_questions.get(step)
     if not q:
-        # invalid step → back to map
         return redirect(url_for("map_view"))
 
     show_feedback = False
     error = None
-    selected = None
 
     if request.method == "POST":
+        # standard radio / image-pick choice
+        choice = None
         try:
-            selected = int(request.form.get("choice", -1))
-        except ValueError:
-            selected = -1
+            choice = int(request.form.get("choice", -1))
+        except (TypeError, ValueError):
+            choice = -1
 
-        if selected == q["answer"]:
-            show_feedback = True
+        # 1) multiple‐choice with an 'answer' key
+        if "answer" in q:
+            if choice == q["answer"]:
+                show_feedback = True
+            else:
+                error = "Try again!"
+
+        # 2) image‐pick question
+        elif q.get("type") == "imagePick":
+            if 0 <= choice < len(q["images"]) and q["images"][choice].get("correct"):
+                show_feedback = True
+            else:
+                error = "Try again!"
+
+        # 3) drag‐and‐drop question
+        elif q.get("type") == "dragAndDrop":
+            dropped = request.form.get("dropped_items", "")
+            # split into labels, filter out empty strings
+            dropped_labels = [lbl for lbl in dropped.split(",") if lbl]
+            # all correct labels from your question definition
+            correct_labels = [d["label"] for d in q["draggables"] if d.get("correct")]
+            # only show feedback when they’ve clicked exactly the right set
+            if set(dropped_labels) == set(correct_labels):
+                show_feedback = True
+            else:
+                error = "Try again!"
+
+        # 4) fallback (no scoring configured) — just allow them to Continue
         else:
-            error = "Try again!"
+            show_feedback = True
 
     return render_template(
         "quiz_step.html",
@@ -297,7 +330,6 @@ def quiz_step(step):
         total=total,
         q=q,
         show_feedback=show_feedback,
-        selected=selected,
         error=error,
     )
 
