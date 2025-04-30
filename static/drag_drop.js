@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
       correctNotes.forEach((note, index) => {
         const img = document.createElement("img");
-        img.src = `/static/icons/${note}.png`;
+        img.src = `/static/images/notes/${note}.png`;
         img.alt = note;
         img.className = "summary-note";
         img.style.position = "absolute";
