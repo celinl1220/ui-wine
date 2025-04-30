@@ -297,13 +297,13 @@ def complete_varietal(varietal_name):
 @app.route("/quiz", methods=["GET", "POST"])
 def quiz_start():
     progress = session.get("progress", [])
-    # block quiz until all varietals are completed
+    # block quiz until all varietals done
     if len(progress) < len(varietals):
-        return redirect(url_for("map"))
+        return redirect(url_for("map_view"))
 
     if request.method == "POST":
-        # kick off at step 1
-        session["quiz_step"] = 1
+        # reset score
+        session["quiz_score"] = 0
         return redirect(url_for("quiz_step", step=1))
 
     return render_template("quiz_intro.html")
@@ -319,43 +319,35 @@ def quiz_step(step):
     error = None
 
     if request.method == "POST":
-        # standard radio / image-pick choice
         choice = None
         try:
             choice = int(request.form.get("choice", -1))
-        except (TypeError, ValueError):
+        except:
             choice = -1
 
-        # 1) multiple‐choice with an 'answer' key
+        # 1) multiple choice
         if "answer" in q:
             if choice == q["answer"]:
                 show_feedback = True
-            else:
-                error = "Try again!"
-
-        # 2) image‐pick question
+        # 2) imagePick
         elif q.get("type") == "imagePick":
-            if 0 <= choice < len(q["images"]) and q["images"][choice].get("correct"):
+            if 0 <= choice < len(q["images"]) and q["images"][choice]["correct"]:
                 show_feedback = True
-            else:
-                error = "Try again!"
-
-        # 3) drag‐and‐drop question
+        # 3) dragAndDrop
         elif q.get("type") == "dragAndDrop":
             dropped = request.form.get("dropped_items", "")
-            # split into labels, filter out empty strings
-            dropped_labels = [lbl for lbl in dropped.split(",") if lbl]
-            # all correct labels from your question definition
-            correct_labels = [d["label"] for d in q["draggables"] if d.get("correct")]
-            # only show feedback when they’ve clicked exactly the right set
-            if set(dropped_labels) == set(correct_labels):
+            picked = [lbl for lbl in dropped.split(",") if lbl]
+            correct = [d["label"] for d in q["draggables"] if d["correct"]]
+            if set(picked) == set(correct):
                 show_feedback = True
-            else:
-                error = "Try again!"
-
-        # 4) fallback (no scoring configured) — just allow them to Continue
         else:
             show_feedback = True
+
+        if not show_feedback:
+            error = "Try again!"
+        else:
+            # tally a point
+            session["quiz_score"] = session.get("quiz_score", 0) + 1
 
     customer_idx = ((step - 1) // 3) + 1
     group_start = (customer_idx - 1) * 3 + 1
@@ -371,8 +363,17 @@ def quiz_step(step):
         customer_dish=customer_dish, 
     )
 
-if __name__ == '__main__':
-   app.run(debug = True, port=5001)
+@app.route("/quiz_complete")
+def quiz_complete():
+    score = session.get("quiz_score", 0)
+    total = len(quiz_questions)
+    return render_template("quiz_complete.html", score=score, total=total)
+
+@app.route("/quiz_complete/retake", methods=["POST"])
+def quiz_retake():
+    # clear score and go back to start
+    session["quiz_score"] = 0
+    return redirect(url_for("quiz_start"))
 
 if __name__ == '__main__':
    app.run(debug = True, port=5001)
