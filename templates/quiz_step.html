@@ -9,21 +9,18 @@
   <a href="{{ url_for('map_view') }}" class="btn btn-hero">← map</a>
 
   <div class="quiz-step-container">
-    {# STATIC heading for steps 1–3, dynamic thereafter #}
-    {% if step <= 3 %}
-      <h2>Customer 1: Spicy Thai Curry</h2>
-    {% else %}
-      <h2>Customer {{ step }}: {{ q.title }}</h2>
-    {% endif %}
-    
+    <!-- Dynamic heading using {{ step }} -->
+    {% set customer_idx = ((step - 1) // 3) + 1 %}
+    <h2>Customer {{ customer_idx }}: {{ customer_dish }}</h2>
     <p class="prompt">{{ q.prompt }}</p>
 
-    {# if not yet answered correctly, show the form #}
     {% if not show_feedback %}
       <form method="post">
-
-        {# drag-and-drop #}
+        <!-- hidden field to capture dropped labels -->
+        <input type="hidden" name="dropped_items" id="dropped-items-input" value="">
+        
         {% if q.type == 'dragAndDrop' %}
+          <!-- 4×2 grid of draggable items -->
           <div id="draggables"
                style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:1.5rem;">
             {% for item in q.draggables %}
@@ -40,6 +37,7 @@
             {% endfor %}
           </div>
 
+          <!-- drop zone + counter -->
           <div id="drop-zone"
                class="border rounded p-4 text-center"
                style="min-height:200px; background-color:#f8f9fa;">
@@ -53,11 +51,13 @@
           <button type="submit" class="btn btn-hero" style="margin-top:1rem;">Submit</button>
 
           <script>
-            const dropZone = document.getElementById("drop-zone");
-            const selectedCount = document.getElementById("selected-count");
+            const draggables    = document.querySelectorAll(".draggable-item");
+            const dropZone      = document.getElementById("drop-zone");
+            const counter       = document.getElementById("selected-count");
+            const hiddenInput   = document.getElementById("dropped-items-input");
             let selected = [];
 
-            document.querySelectorAll(".draggable-item").forEach(item => {
+            draggables.forEach(item => {
               item.addEventListener("dragstart", e => {
                 e.dataTransfer.setData("text/plain", item.dataset.label);
               });
@@ -76,33 +76,34 @@
 
               const label = e.dataTransfer.getData("text/plain");
               if (!label || selected.includes(label)) return;
+
               selected.push(label);
+              hiddenInput.value = selected.join(",");
 
               const badge = document.createElement("span");
               badge.textContent = label;
-              badge.className = "badge bg-secondary m-1";
+              badge.className   = "badge bg-secondary m-1";
               dropZone.appendChild(badge);
 
               const totalCorrect = {{ q.draggables|selectattr('correct')|list|length }};
-              selectedCount.textContent = `Selected: ${selected.length} of ${totalCorrect}`;
+              counter.textContent = `Selected: ${selected.length} of ${totalCorrect}`;
             });
           </script>
 
         {% elif q.type == 'imagePick' %}
-          <div class="image-pick-grid"
-               style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;">
+          <!-- image-pick: unchanged -->
+          <div class="image-pick-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;">
             {% for idx, img in enumerate(q.images) %}
-              <button type="submit" name="choice" value="{{ idx }}"
-                      style="border:none; background:none;">
+              <button type="submit" name="choice" value="{{ idx }}" style="border:none; background:none;">
                 <img src="{{ url_for('static', filename='images/glasses/' ~ img.src) }}"
-                     alt="Glass {{ idx+1 }}"
-                     style="max-width:100%; display:block;">
+                     alt="Glass {{ idx+1 }}" style="max-width:100%; display:block;">
               </button>
             {% endfor %}
           </div>
           <button type="submit" class="btn btn-hero" style="margin-top:1rem;">Submit</button>
 
         {% else %}
+          <!-- multiple-choice: unchanged -->
           {% for idx, choice in enumerate(q.choices) %}
             <div class="form-check mb-3">
               <input class="form-check-input"
@@ -120,17 +121,23 @@
       </form>
     {% endif %}
 
-    {# feedback / continue link #}
     {% if show_feedback %}
-      <a href="{{ url_for('quiz_step', step=step+1) }}"
-         class="btn btn-hero"
-         style="margin-top:1rem;">
-        Continue
-      </a>
-      <p class="feedback" style="margin-top:1rem; font-weight:bold;">Correct!</p>
-    {% elif error %}
-      <p class="error" style="color:#c00; margin-top:1rem;">{{ error }}</p>
+    <a href="{{ url_for('quiz_step', step=step+1) }}" class="btn btn-hero" style="margin-top:1rem;">
+      Continue
+    </a>
+  
+    {% if q.explanation and q.answer is not none %}
+      <p class="feedback" style="margin-top:1rem; font-weight:bold;">
+        Correct Answer: {{ q.choices[q.answer] }} ({{ q.explanation }})
+      </p>
+    {% else %}
+      <p class="feedback" style="margin-top:1rem; font-weight:bold;">
+        Correct!
+      </p>
     {% endif %}
+  {% elif error %}
+    <p class="error" style="color:#c00; margin-top:1rem;">{{ error }}</p>
+  {% endif %}
 
   </div>
 </body>
