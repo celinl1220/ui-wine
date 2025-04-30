@@ -1,30 +1,28 @@
 {% extends "base.html" %}
 
-{% block title %}Quiz {{ step }}: {{ q.title }}{% endblock %}
+{% block title %}Quiz {{ step }}: {{ q.title }} — Vine Voyage{% endblock %}
 
 {% block content %}
   <div class="quiz-step-container" style="padding:2rem; max-width:800px; margin:0 auto;">
-    {# calculate which “Customer X” we’re on #}
     {% set customer_idx = ((step - 1) // 3) + 1 %}
 
-    <h2 style="font-size:2rem; margin-bottom:1rem;">
+    <h2 class="mb-3">
       Customer {{ customer_idx }}: {{ q.title }}
     </h2>
 
-    <p class="prompt" style="font-size:1.2rem; margin-bottom:1.5rem;">
+    <p class="prompt mb-4">
       {{ q.prompt }}
     </p>
 
     {% if not show_feedback %}
       <form method="post">
-        {# we need this hidden field only for drag‐and‐drop #}
         <input type="hidden" name="dropped_items" id="dropped-items-input" value="">
 
-        {% if q.type == 'dragAndDrop' %}
-          <!-- 4×2 grid of draggable items -->
+        {% if q['type'] == 'dragAndDrop' %}
           <div id="draggables"
-               style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:1.5rem;">
-            {% for item in q.draggables %}
+               class="d-grid gap-3 mb-4"
+               style="grid-template-columns:repeat(4,1fr);">
+            {% for item in q['draggables'] %}
               <div class="draggable-item border p-2 text-center"
                    draggable="true"
                    data-label="{{ item.label }}"
@@ -32,40 +30,39 @@
                    style="cursor:grab;">
                 <img src="{{ url_for('static', filename='images/' ~ item.image) }}"
                      alt="{{ item.label }}"
-                     style="max-height:80px; width:auto;">
-                <div style="margin-top:0.5rem; font-weight:bold;">{{ item.label }}</div>
+                     style="max-height:80px;">
+                <div class="mt-1 font-weight-bold">{{ item.label }}</div>
               </div>
             {% endfor %}
           </div>
 
-          <!-- drop zone + counter -->
           <div id="drop-zone"
-               class="border rounded p-4 text-center"
-               style="min-height:200px; background-color:#f8f9fa;">
+               class="border rounded p-4 text-center bg-white"
+               style="min-height:200px;">
             <p>Drag items here</p>
           </div>
-          <div id="selected-count"
-               style="margin-top:0.5rem; font-style:italic;">
-            Selected: 0 of {{ q.draggables|selectattr('correct')|list|length }}
+          <div id="selected-count" class="text-muted mt-2">
+            Selected: 0 of {{ q['draggables']|selectattr('correct')|list|length }}
           </div>
 
-          <button type="submit" class="btn btn-hero" style="margin-top:1rem;">Submit</button>
+          <button type="submit" class="btn btn-hero mt-4">Submit</button>
 
-        {% elif q.type == 'imagePick' %}
-          <!-- image-pick -->
-          <div class="image-pick-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;">
-            {% for idx, img in enumerate(q.images) %}
-              <button type="submit" name="choice" value="{{ idx }}" style="border:none; background:none;">
+        {% elif q['type'] == 'imagePick' %}
+          <div class="image-pick-grid d-grid gap-3 mb-4"
+               style="grid-template-columns:repeat(4,1fr);">
+            {% for idx, img in enumerate(q['images']) %}
+              <button type="submit" name="choice" value="{{ idx }}"
+                      class="border-0 bg-transparent p-0">
                 <img src="{{ url_for('static', filename='images/glasses/' ~ img.src) }}"
-                     alt="Glass {{ idx+1 }}" style="max-width:100%; display:block;">
+                     alt="Glass {{ idx+1 }}"
+                     class="img-fluid">
               </button>
             {% endfor %}
           </div>
-          <button type="submit" class="btn btn-hero" style="margin-top:1rem;">Submit</button>
+          <button type="submit" class="btn btn-hero">Submit</button>
 
         {% else %}
-          <!-- multiple-choice -->
-          {% for idx, choice in enumerate(q.choices) %}
+          {% for idx, choice in enumerate(q['choices']) %}
             <div class="form-check mb-3">
               <input class="form-check-input"
                      type="radio"
@@ -73,40 +70,41 @@
                      id="c{{ idx }}"
                      value="{{ idx }}"
                      {% if loop.first %}checked{% endif %}>
-              <label class="form-check-label" for="c{{ idx }}">{{ choice }}</label>
+              <label class="form-check-label" for="c{{ idx }}">
+                {{ choice }}
+              </label>
             </div>
           {% endfor %}
           <button type="submit" class="btn btn-hero">Submit</button>
         {% endif %}
-
       </form>
     {% endif %}
 
     {% if show_feedback %}
       <a href="{{ url_for('quiz_step', step=step+1) }}"
-         class="btn btn-hero"
-         style="margin-top:1rem; display:inline-block;">
+         class="btn btn-hero mt-4">
         Continue
       </a>
 
-      {% if q.answer is not none %}
-        <p class="feedback" style="margin-top:1rem; font-weight:bold;">
-          Correct Answer: {{ q.choices[q.answer] }}
-          {% if q.explanation %} ({{ q.explanation }}){% endif %}
+      {% if q.get('answer') is not none %}
+        <p class="feedback font-weight-bold mt-3">
+          Correct Answer: {{ q['choices'][ q.get('answer') ] }}
+          {% if q.get('explanation') %} ({{ q.get('explanation') }}){% endif %}
         </p>
       {% else %}
-        <p class="feedback" style="margin-top:1rem; font-weight:bold;">
+        <p class="feedback font-weight-bold mt-3">
           Correct!
         </p>
       {% endif %}
+
     {% elif error %}
-      <p class="error" style="color:#c00; margin-top:1rem;">{{ error }}</p>
+      <p class="text-danger font-weight-bold mt-3">{{ error }}</p>
     {% endif %}
   </div>
 {% endblock %}
 
 {% block extra_scripts %}
-  {% if q.type == 'dragAndDrop' %}
+  {% if q['type'] == 'dragAndDrop' %}
     <script>
       const draggables  = document.querySelectorAll(".draggable-item");
       const dropZone    = document.getElementById("drop-zone");
@@ -124,11 +122,9 @@
         e.preventDefault();
         dropZone.classList.add("bg-light");
       });
-
       dropZone.addEventListener("dragleave", e => {
         dropZone.classList.remove("bg-light");
       });
-
       dropZone.addEventListener("drop", e => {
         e.preventDefault();
         dropZone.classList.remove("bg-light");
@@ -139,10 +135,10 @@
 
         const badge = document.createElement("span");
         badge.textContent = label;
-        badge.className = "badge bg-secondary m-1";
+        badge.className   = "badge badge-secondary m-1";
         dropZone.appendChild(badge);
 
-        const totalCorrect = {{ q.draggables|selectattr('correct')|list|length }};
+        const totalCorrect = {{ q['draggables']|selectattr('correct')|list|length }};
         counter.textContent = `Selected: ${selected.length} of ${totalCorrect}`;
       });
     </script>
