@@ -1,1 +1,62 @@
-<div>ACTIVITY3 CONTENTS HERE</div>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='activity3_pairings.css') }}">
+</head>
+
+<body>
+    <div class="pairing-container">
+        <!-- <div class="feedback-overlay" id="feedback-overlay">
+            <div class="feedback-text" id="feedback-text">
+                <p>Correct answer: {{ current_food['correct_answer'] }}</p>
+            </div>
+            <div class="feedback-description" id="feedback-description">
+                <p>Explanation: {{ current_food['explanation'] }}</p>
+            </div>
+        </div> -->
+        <div class="d-flex justify-content-between align-items-center">
+            <div id="meh-stack" class="stack-column text-center">
+                <!-- <div class="arrow left" id="left-arrow">← <span class="label">meh</span></div> -->
+                <!-- <div id="left-arrow" class="arrow">⬅️</div> -->
+            </div>
+            <div class="controls">
+                <div class="arrow left" id="left-arrow">← <span class="label">meh</span></div>
+            </div>
+        
+            <div id="image-wrapper" class="position-relative">
+                <img id="food-image" src="{{ url_for('static', filename='images/foods/' ~ current_food['image']) }}" alt="Food image">
+                <!-- <img id="food-image" src="/static/images/foods/example.jpg" class="main-image" /> -->
+                <div id="feedback-overlay">
+                    <div>
+                        <p id="feedback-text"></p>
+                        <p id="feedback-description"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="arrow right" id="right-arrow"><span class="label">good</span> →</div>
+            </div>
+            <div id="good-stack" class="stack-column text-center">
+                <!-- <div class="arrow right" id="right-arrow"><span class="label">good</span> →</div> -->
+                <!-- <div id="right-arrow" class="arrow">➡️</div> -->
+            </div>
+        </div>
+        <!-- <div class="foodarrows-container">
+            <div class="controls">
+                <div class="arrow left" id="left-arrow">← <span class="label">meh</span></div>
+            </div>
+            <div class="image-wrapper" id="image-wrapper">
+                <img id="food-image" src="{{ url_for('static', filename='images/foods/' ~ current_food['image']) }}" alt="Food image">
+            </div>
+            <div class="controls">
+                <div class="arrow right" id="right-arrow"><span class="label">good</span> →</div>
+            </div>
+        </div> -->
+    </div>
+    <div id="food-data"
+        data-correct="{{ current_food.correct_answer }}"
+        data-explanation="{{ current_food.explanation }}"
+        data-next-url="{{ url_for('next_food', varietal_name=varietal_url) }}">
+    </div>
+    <script src="{{ url_for('static', filename='activity3_pairings.js') }}"></script>
+</body>

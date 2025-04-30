@@ -130,6 +130,35 @@ activities = {
     }
 }
 
+activity3 = {
+    "riesling": [{
+            "image": "apple_tart.png",
+            "correct_answer": "good",
+            "explanation": "The crisp sweetness of Riesling complements the fruitiness of the tart."
+        }, {
+            "image": "steak.png",
+            "correct_answer": "meh",
+            "explanation": "The tannins in steak can clash with the sweetness and acidity of Riesling."
+        }, {
+            "image": "blue_cheese.png",
+            "correct_answer": "meh",
+            "explanation": "The bold, tangy flavors of blue cheese can overwhelm the more subtle qualities of Riesling."
+        }, {
+            "image": "thai_curry.png",
+            "correct_answer": "good",
+            "explanation": "The wine's sweetness balances the heat and spiciness of the curry."
+        }, {
+            "image": "brie_cheese.png",
+            "correct_answer": "good",
+            "explanation": "The wine's acidity cuts through the richness of the cheese, enhancing the flavor."
+        }, {
+            "image": "pickles.png",
+            "correct_answer": "meh",
+            "explanation": "The acidity of pickles may overpower the delicate flavors of Riesling."
+        }
+    ]
+}
+
 
 quiz_questions = {
     1: {
@@ -269,14 +298,24 @@ def start_activity(varietal_name, activity_number):
     if not varietal or not activity:
         return "Page not found", 404
 
+    # Add this part only for activity 3 (pairings)
+    current_food = None
+    if activity_number == 3:
+        foods = activity3.get(varietal_name.lower(), [])
+        if foods:
+            session["food_index"] = 0
+            current_food = foods[0]
+
     return render_template(
         "activity.html",
         varietal_name=varietal["varietal"],
         activity_number=activity_number,
         activity_name=activity["name"],
         varietal_url=varietal["varietal_url"],
-        hint=varietal_activities["hint_short"]
+        hint=varietal_activities["hint_short"],
+        current_food=current_food # only for activity 3
     )
+
 
 # When an activity is completed, update the session
 @app.route("/complete_varietal/<varietal_name>", methods=["POST"])
@@ -294,6 +333,33 @@ def complete_varietal(varietal_name):
 
     # back to the map overview
     return render_template("activity_complete.html", varietal_name=varietal["varietal"], varietal_url=varietal["varietal_url"])
+
+@app.route("/next_food/<varietal_name>", methods=["GET", "POST"])
+def next_food(varietal_name):
+    varietal = varietal_data.get(varietal_name.lower())
+    if varietal_name not in activity3:
+        return jsonify({"error": "Invalid varietal"}), 400
+
+    # Initialize index if not in session
+    if "food_index" not in session:
+        session["food_index"] = 0
+    else:
+        session["food_index"] += 1
+
+    foods = activity3[varietal_name]
+    index = session["food_index"]
+
+    if index == len(foods):
+        return jsonify({
+            "done": True
+        })
+
+    food = foods[index]
+    return jsonify({
+        "image": food["image"],
+        "explanation": food["explanation"],
+        "correct_answer": food["correct_answer"]
+    })
 
 @app.route("/quiz", methods=["GET", "POST"])
 def quiz_start():

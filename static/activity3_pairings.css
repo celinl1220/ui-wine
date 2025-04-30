@@ -1,0 +1,119 @@
+.pairing-container {
+    position: relative;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.foodarrows-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem; /* adjust spacing between items */
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+.arrow {
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    user-select: none;
+    font-weight: bold;
+}
+
+#food-image {
+    max-width: 200px; /* or whatever size works for your layout */
+    height: auto;
+    border-radius: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* transition: transform 0.6s ease-in-out; */
+    /* max-width: 60%; */
+    transition: opacity 0.3s ease;
+}
+
+.slide-left {
+    transform: translateX(-100%);
+}
+
+.slide-right {
+    transform: translateX(100%);
+}
+
+.left {
+    color: red;
+}
+
+.right {
+    color: green;
+}
+
+.label {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.feedback-overlay {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.feedback-text {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.feedback-description {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    max-width: 60%;
+}
+
+
+
+/* testing */
+
+.stack-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100px;
+}
+
+.stack-column img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 2px solid #ccc;
+}
+
+.main-image {
+    width: 300px;
+    height: auto;
+    transition: transform 0.5s ease-out;
+}
+
+.slide-left {
+    transform: translateX(-400px) rotate(-5deg);
+    opacity: 0;
+}
+
+.slide-right {
+    transform: translateX(400px) rotate(5deg);
+    opacity: 0;
+}
