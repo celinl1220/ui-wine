@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Vine Voyage - Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='map.css') }}">
+</head>
+
+<body>
+    <div class="map-wrapper">
+        <div class="row">
+            <div class="col-md-1">
+                <!-- Back to map button -->
+                <form method="post" action="{{ url_for('home') }}">
+                    <button type="submit" class="btn-hero">home</button>
+                </form>
+            </div>
+            <div class="col-md-10"></div>
+            <div class="col-md-1">
+                {% if all_completed %}
+                    <form method="post" action="{{ url_for('quiz') }}">
+                        <button type="submit" class="btn-hero" , id="quiz-btn">quiz</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        <h1 class="map-title">Realm Map</h1>
+        <div id="loader">Loading...</div>
+        <div class="map-contents" id="map-buttons">
+            {% for v in varietals %}
+            <form method="post" action="{{ url_for('varietal_intro', varietal_name=v) }}">
+                <button type="submit" class="btn-hero varietal-button" id="btn-{{ v }}" data-varietal="{{ v }}">
+                    {{ varietal_data[v]["title"].split("Welcome to the ")[-1] }}
+                </button>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS + jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const varietalOrder = {{ varietals | tojson }};
+        const progress = {{ progress | tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='map.js') }}"></script>
+</body>
+
+</html>

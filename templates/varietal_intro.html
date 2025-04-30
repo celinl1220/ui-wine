@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vine Voyage - Riesling</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="riesling-wrapper">
+    <div class="row">
+      <div class="col-12">
+          <!-- Back to map button -->
+          <form method="post" action="{{ url_for('map') }}">
+              <button type="submit" class="btn-hero">map</button>
+          </form>
+      </div>
+  </div>
+    <h1 class="riesling-title">{{ title }}</h1>
+
+    {% for description in descriptions %}
+      <p class="riesling-description">{{ description }}</p>
+    {% endfor %}
+
+    <form method="post" action="{{ url_for('activity_intro', varietal_name=varietal_url, activity_number=1) }}">
+      <button type="submit" class="btn-hero">Start Discovering {{ varietal }}</button>
+    </form>
+
+  </div>
+
+  <!-- Bootstrap JS + jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vine Voyage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="home-wrapper">
+    <h1 class="home-title">Vine Voyage</h1>
+    <h2 class="home-subtitle">Unlock the Secrets of Wine</h2>
+    <p class="home-description">A 10-minute wine varietal tasting adventure</p>
+    <form method="post" action="{{ url_for('map') }}">
+        <button type="submit" class="btn-hero">Start the Journey</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS + jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
