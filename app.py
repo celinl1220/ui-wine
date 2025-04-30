@@ -21,7 +21,9 @@ varietal_data = {
             },
             2: {
                 "hint": "This wine is typically pale straw to light gold.",
-                "hint_short": "This wine is typically pale straw to light gold."
+                "hint_short": "This wine is typically pale straw to light gold.",
+                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
+                "correct_index": 0
             },
             3: {
                 "hint": "Think spicy food, light meats, and citrusy dishes!",
@@ -42,7 +44,9 @@ varietal_data = {
             },
             2: {
                 "hint": "This wine is typically pale straw with greenish glints.",
-                "hint_short": "This wine is typically pale straw with greenish glints."
+                "hint_short": "This wine is typically pale straw with greenish glints.",
+                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
+                "correct_index": 0
             },
             3: {
                 "hint": "Sauvignon Blanc is perfect with fresh, zesty, and herbaceous dishes.",
@@ -63,7 +67,9 @@ varietal_data = {
             },
             2: {
                 "hint": "This wine ranges from pale gold to rich, buttery yellow.",
-                "hint_short": "This wine ranges from pale gold to rich, buttery yellow."
+                "hint_short": "This wine ranges from pale gold to rich, buttery yellow.",
+                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
+                "correct_index": 0
             },
             3: {
                 "hint": "Chardonnay pairs wonderfully with rich, creamy, and buttery foods.",
@@ -84,7 +90,9 @@ varietal_data = {
             },
             2: {
                 "hint": "This wine is typically light ruby to translucent garnet.",
-                "hint_short": "This wine is typically light ruby to translucent garnet."
+                "hint_short": "This wine is typically light ruby to translucent garnet.",
+                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
+                "correct_index": 0
             },
             3: {
                 "hint": "Pinot Noir is a great match for earthy, savory, and subtly spiced dishes.",
@@ -105,7 +113,9 @@ varietal_data = {
             },
             2: {
                 "hint": "This wine is deep ruby to inky purple, often nearly opaque.",
-                "hint_short": "This wine is deep ruby to inky purple, often nearly opaque."
+                "hint_short": "This wine is deep ruby to inky purple, often nearly opaque.",
+                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
+                "correct_index": 0
             },
             3: {
                 "hint": "Cabernet Sauvignon complements hearty, grilled, and bold-flavored meals.",
@@ -208,6 +218,8 @@ def start_activity(varietal_name, activity_number):
         varietal_url=varietal["varietal_url"],
         hint=varietal_activities["hint_short"], 
         correct_notes=varietal_activities.get("correct_notes", []),
+        color_options=varietal_activities.get("color_options", []),
+        correct_index=varietal_activities.get("correct_index", 0),
     )
 
 # When an activity is completed, update the session

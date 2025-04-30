@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
             showSummaryState();
           }, 300);
         }
-  
       } else {
         showXAtDrop(e);
         dragged.remove();
@@ -56,9 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function showXAtDrop(event) {
       const xMark = document.createElement("div");
       xMark.textContent = "✖";
-      xMark.className = "x-feedback";
+      xMark.className = "x-feedback-drag";
   
-      // Position relative to drop zone
       const rect = dropZone.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
@@ -67,6 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
       xMark.style.top = `${y}px`;
   
       dropZone.appendChild(xMark);
+  
+      // ✅ Force reflow
+      xMark.getBoundingClientRect();
   
       requestAnimationFrame(() => {
         xMark.style.opacity = "0";
@@ -87,16 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
       glassCol.className = "col-md-6 position-relative summary-container";
   
       const glassImg = document.createElement("img");
-      glassImg.src = "/static/wine_glass.png";
+      glassImg.src = "/static/glass_outline.png";
       glassImg.className = "img-fluid";
   
-      // Place each correct note around the glass
       correctNotes.forEach((note, index) => {
         const img = document.createElement("img");
         img.src = `/static/icons/${note}.png`;
         img.alt = note;
         img.className = "summary-note";
-  
         img.style.position = "absolute";
   
         switch (index) {
@@ -128,6 +127,9 @@ document.addEventListener("DOMContentLoaded", () => {
       glassCol.appendChild(glassImg);
       summaryRow.appendChild(glassCol);
       activityWrapper.appendChild(summaryRow);
+  
+      const backBtn = document.getElementById("summary-back-button");
+      if (backBtn) backBtn.style.display = "block";
     }
   });
   

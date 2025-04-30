@@ -5,11 +5,13 @@
   <title>Start {{ activity_name }} - {{ varietal_name }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Bootstrap CSS -->
+  <!-- Styles -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="{{ url_for('static', filename='activity.css') }}" rel="stylesheet" />
   {% if activity_number == 1 %}
     <link href="{{ url_for('static', filename='drag_drop.css') }}" rel="stylesheet" />
+  {% elif activity_number == 2 %}
+    <link href="{{ url_for('static', filename='color_match.css') }}" rel="stylesheet" />
   {% endif %}
 </head>
 <body>
@@ -30,23 +32,27 @@
             <button type="submit" class="btn-hero" id="continue-btn">continue</button>
           </form>
         {% else %}
-          <form method="post" action="{{ url_for('activity_intro', varietal_name=varietal_url, activity_number=activity_number+1) }}">
+          <form method="post" action="{{ url_for('activity_intro', varietal_name=varietal_url, activity_number=activity_number + 1) }}">
             <button type="submit" class="btn-hero" id="continue-btn">continue</button>
           </form>
         {% endif %}
       </div>
     </div>
 
-    <!-- Activity Title and Hint -->
+    <!-- Title and Hint -->
     <h1 class="activity-title text-center">{{ activity_name }}</h1>
     <p class="activity-hint text-center">Hint: {{ hint }}</p>
 
     {% if activity_number == 1 %}
-      <!-- Drag and Drop Layout -->
-      <div class="row">
-        <!-- Left: Notes Grid -->
-        <div class="col-md-8 d-flex flex-wrap notes-grid justify-content-start">
-          {% for note in ["apple", "lemon", "peach", "blackberry", "oak", "tobacco", "lime", "grapefruit", "butter", "vanilla", "cherry", "smoke", "floral"] %}
+<!-- Drag and Drop Layout -->
+
+
+<div class="row justify-content-center align-items-start">
+
+    <!-- Draggable notes (unchanged) -->
+    <div class="col-md-6">
+        <div class="notes-grid">
+          {% for note in ["apple", "lemon", "peach", "vanilla", "grass", "cherry", "oak", "smoke"] %}
             <img src="{{ url_for('static', filename='icons/' + note + '.png') }}"
                  alt="{{ note }}"
                  class="drag-item"
@@ -54,30 +60,62 @@
                  data-note="{{ note }}">
           {% endfor %}
         </div>
+      </div>
 
-        <!-- Right: Drop Zone and Correct Answers -->
-        <div class="col-md-4 text-center">
-          <div class="drop-zone mb-3">
-            <img src="{{ url_for('static', filename='wine_glass.png') }}" alt="Wine Glass" class="img-fluid" />
-          </div>
-          <div class="correct-notes d-flex flex-wrap justify-content-center"></div>
+
+    <!-- Glass + Correct Notes side-by-side -->
+    <div class="col-md-4 d-flex justify-content-center align-items-start">
+      <div class="drop-zone-wrapper d-flex">
+        <!-- Glass -->
+        <div class="drop-zone me-3">
+          <img src="{{ url_for('static', filename='glass_outline.png') }}"
+               alt="Wine Glass"
+               class="img-fluid"
+               style="max-width: 200px;" />
+        </div>
+  
+        <!-- Correct Notes (now beside the glass) -->
+        <div class="correct-notes d-flex flex-column align-items-start justify-content-start"></div>
+      </div>
+    </div>
+  
+  </div>
+  
+  <script>
+    const correctNotes = JSON.parse('{{ correct_notes | tojson | safe }}');
+  </script>
+  <script src="{{ url_for('static', filename='drag_drop.js') }}"></script>
+    {% elif activity_number == 2 %}
+      <!-- Color Match Activity -->
+      <div class="row justify-content-center mt-5">
+        <div class="col-12 text-center">
+          <p class="activity-hint"><strong>Tip:</strong> {{ hint }}</p>
+        </div>
+        <div class="col-10 d-flex justify-content-around flex-wrap glass-options" id="glass-options">
+          {% for i in range(4) %}
+            <div class="wine-glass" data-index="{{ i }}">
+              <img src="{{ url_for('static', filename='glass_outline.png') }}" class="glass-base" />
+              <div class="glass-fill"></div>
+            </div>
+          {% endfor %}
         </div>
       </div>
 
-      <!-- Inject JS variable with correct notes -->
       <script>
-        const correctNotes = JSON.parse('{{ correct_notes | tojson | safe }}');
+        const colorOptions = JSON.parse('["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"]');
+        const correctIndex = 0;
       </script>
-      <script src="{{ url_for('static', filename='drag_drop.js') }}"></script>
+      <script src="{{ url_for('static', filename='color_match.js') }}"></script>
+
     {% else %}
-      <!-- Placeholder for non-drag-and-drop activities -->
+      <!-- Placeholder for non-implemented activities -->
       <div class="text-center mt-5">
         <p>This activity type is not yet implemented on this page.</p>
       </div>
     {% endif %}
 
     <!-- Back Button -->
-    <div class="row mt-4">
+    <div id="summary-back-button" class="row mt-4" style="display: none;">
       <div class="col-12 text-center">
         <form method="post" action="{{ url_for('activity_intro', varietal_name=varietal_url, activity_number=activity_number) }}">
           <button type="submit" class="btn-hero">back</button>
@@ -86,10 +124,8 @@
     </div>
   </div>
 
-  <!-- Bootstrap JS + jQuery -->
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
