@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}VineVoyage{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- main stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+  <!-- any per‐page extra head (e.g. inline scripts/styles) -->
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <!-- Optional site‐wide header/nav -->
+  <header class="site-header">
+    <nav>
+      <a href="{{ url_for('home') }}" class="btn-back">← home</a>
+      {% if not request.path == url_for('home') %}
+        <!-- show map button on non‐home pages -->
+        <a href="{{ url_for('map_view') }}" class="btn-back">← map</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <!-- Main content area -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Optional site‐wide footer -->
+  <footer class="site-footer">
+    <p style="text-align:center; padding:1rem; font-size:0.8rem; color:#666;">
+      &copy; {{ current_year }} VineVoyage
+    </p>
+  </footer>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>
