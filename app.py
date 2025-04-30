@@ -29,7 +29,7 @@ varietal_data = {
         }
     },
     "sauvignon_blanc": {
-        "title": "Welcome to the Valley of Sauvignon Blanc!",
+        "title": "Welcome to the Valley of Sauvignon Blanc",
         "descriptions": ["Sauvignon Blanc is fresh, green, and unapologetically zesty.", "Known for its high acidity and bold aromatics, this wine brings to mind citrus groves, cut grass, and cool ocean breezes.", "It's sharp, sassy, and always refreshing."],
         "varietal": "Sauvignon Blanc",
         "varietal_url": "sauvignon_blanc",
@@ -49,7 +49,7 @@ varietal_data = {
         }
     },
     "chardonnay": {
-        "title": "Welcome to the Golden Hills of Chardonnay!",
+        "title": "Welcome to the Golden Hills of Chardonnay",
         "descriptions": ["Chardonnay is smooth, versatile, and effortlessly elegant.", "Think ripe pear, creamy vanilla, and a hint of toasted oak.", "It’s rich yet balanced—great for those who enjoy a little luxury in every sip."],
         "varietal": "Chardonnay",
         "varietal_url": "chardonnay",
@@ -69,7 +69,7 @@ varietal_data = {
         }
     },
     "pinot_noir": {
-        "title": "Welcome to the Forest of Pinot Noir!",
+        "title": "Welcome to the Forest of Pinot Noir",
         "descriptions": ["Pinot Noir is delicate, earthy, and quietly complex.", "Think ripe cherry, soft spice, and subtle floral notes.", "It's graceful and layered—perfect for those who appreciate a softer kind of depth."],
         "varietal": "Pinot Noir",
         "varietal_url": "pinot_noir",
@@ -89,7 +89,7 @@ varietal_data = {
         }
     },
     "cabernet_sauvignon": {
-        "title": "Welcome to the Caverns of Cabernet Sauvignon!",
+        "title": "Welcome to the Caverns of Cabernet Sauvignon",
         "descriptions": ["Cabernet Sauvignon is bold, structured, and unapologetically full-bodied.", "Think blackcurrant, tobacco, and a whisper of cedar.", "It's powerful and intense—for those who like their wines with serious presence."],
         "varietal": "Cabernet Sauvignon",
         "varietal_url": "cabernet_sauvignon",
