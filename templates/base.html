@@ -1,41 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>{% block title %}VineVoyage{% endblock %}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- main stylesheet -->
+  <meta charset="UTF-8" />
+  <title>{% block title %}Vine Voyage{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Bootstrap CSS -->
+  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  />
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-
-  <!-- any per‐page extra head (e.g. inline scripts/styles) -->
-  {% block extra_head %}{% endblock %}
 </head>
 <body>
 
-  <!-- Optional site‐wide header/nav -->
-  <header class="site-header">
-    <nav>
-      <a href="{{ url_for('home') }}" class="btn-back">← home</a>
-      {% if not request.path == url_for('home') %}
-        <!-- show map button on non‐home pages -->
-        <a href="{{ url_for('map_view') }}" class="btn-back">← map</a>
-      {% endif %}
-    </nav>
-  </header>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom mb-4">
+    <div class="container">
+      <a class="navbar-brand font-weight-bold" href="{{ url_for('home') }}">
+        Vine Voyage
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#mainNav"
+        aria-controls="mainNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <!-- Main content area -->
-  <main>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item{% if request.endpoint == 'home' %} active{% endif %}">
+            <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+          </li>
+          <li class="nav-item{% if request.endpoint == 'map_view' %} active{% endif %}">
+            <a class="nav-link" href="{{ url_for('map_view') }}">Map</a>
+          </li>
+          <li class="nav-item{% if request.endpoint == 'quiz_start' %} active{% endif %}">
+            <a class="nav-link" href="{{ url_for('quiz_start') }}">Quiz</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE CONTENT -->
+  <main class="container mb-5">
     {% block content %}{% endblock %}
   </main>
 
-  <!-- Optional site‐wide footer -->
-  <footer class="site-footer">
-    <p style="text-align:center; padding:1rem; font-size:0.8rem; color:#666;">
-      &copy; {{ current_year }} VineVoyage
-    </p>
-  </footer>
-
+  <!-- OPTIONAL PER-PAGE SCRIPTS -->
   {% block extra_scripts %}{% endblock %}
+
+  <!-- Bootstrap JS + jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js">
+  </script>
 </body>
 </html>
