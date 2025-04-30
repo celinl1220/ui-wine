@@ -1,1 +1,34 @@
-<div>ACTIVITY1 CONTENTS HERE</div>
+<!-- Drag and Drop Layout -->
+<div class="row justify-content-center align-items-start">
+
+    <!-- Draggable notes (unchanged) -->
+    <div class="col-md-6">
+        <div class="notes-grid">
+            {% for note in ["apple", "lemon", "peach", "vanilla", "grass", "cherry", "oak", "smoke"] %}
+            <img src="{{ url_for('static', filename='icons/' + note + '.png') }}" alt="{{ note }}"
+                class="drag-item" draggable="true" data-note="{{ note }}">
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <!-- Glass + Correct Notes side-by-side -->
+    <div class="col-md-4 d-flex justify-content-center align-items-start">
+        <div class="drop-zone-wrapper d-flex">
+            <!-- Glass -->
+            <div class="drop-zone me-3">
+                <img src="{{ url_for('static', filename='glass_outline.png') }}" alt="Wine Glass"
+                    class="img-fluid" style="max-width: 200px;" />
+            </div>
+
+            <!-- Correct Notes (now beside the glass) -->
+            <div class="correct-notes d-flex flex-column align-items-start justify-content-start"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const correctNotes = JSON.parse('{{ correct_notes | tojson | safe }}');
+</script>
+<script src="{{ url_for('static', filename='drag_drop.js') }}"></script>

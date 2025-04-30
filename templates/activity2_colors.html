@@ -1,1 +1,20 @@
-<div>ACTIVITY2 CONTENTS HERE</div>
+<!-- Color Match Activity -->
+<div class="row justify-content-center mt-5">
+    <div class="col-12 text-center">
+        <p class="activity-hint"><strong>Tip:</strong> {{ hint }}</p>
+    </div>
+    <div class="col-10 d-flex justify-content-around flex-wrap glass-options" id="glass-options">
+        {% for i in range(4) %}
+        <div class="wine-glass" data-index="{{ i }}">
+            <img src="{{ url_for('static', filename='glass_outline.png') }}" class="glass-base" />
+            <div class="glass-fill"></div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    const colorOptions = JSON.parse('["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"]');
+    const correctIndex = 0;
+</script>
+<script src="{{ url_for('static', filename='color_match.js') }}"></script>

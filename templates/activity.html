@@ -49,76 +49,14 @@
         <p class="activity-hint text-center">Hint: {{ hint }}</p>
 
         <div class="activity-content">
-            {% if activity_number == 3 %}
-            {% include 'activity3_pairings.html' %}
+            {% if activity_number == 1 %}
+                {% include 'activity1_notes.html' %}
+            {% elif activity_number == 2 %}
+                {% include 'activity2_colors.html' %}
+            {% elif activity_number == 3 %}
+                {% include 'activity3_pairings.html' %}
             {% endif %}
         </div>
-
-        {% if activity_number == 1 %}
-        <!-- Drag and Drop Layout -->
-
-
-        <div class="row justify-content-center align-items-start">
-
-            <!-- Draggable notes (unchanged) -->
-            <div class="col-md-6">
-                <div class="notes-grid">
-                    {% for note in ["apple", "lemon", "peach", "vanilla", "grass", "cherry", "oak", "smoke"] %}
-                    <img src="{{ url_for('static', filename='icons/' + note + '.png') }}" alt="{{ note }}"
-                        class="drag-item" draggable="true" data-note="{{ note }}">
-                    {% endfor %}
-                </div>
-            </div>
-
-
-            <!-- Glass + Correct Notes side-by-side -->
-            <div class="col-md-4 d-flex justify-content-center align-items-start">
-                <div class="drop-zone-wrapper d-flex">
-                    <!-- Glass -->
-                    <div class="drop-zone me-3">
-                        <img src="{{ url_for('static', filename='glass_outline.png') }}" alt="Wine Glass"
-                            class="img-fluid" style="max-width: 200px;" />
-                    </div>
-
-                    <!-- Correct Notes (now beside the glass) -->
-                    <div class="correct-notes d-flex flex-column align-items-start justify-content-start"></div>
-                </div>
-            </div>
-
-        </div>
-
-        <script>
-            const correctNotes = JSON.parse('{{ correct_notes | tojson | safe }}');
-        </script>
-        <script src="{{ url_for('static', filename='drag_drop.js') }}"></script>
-        {% elif activity_number == 2 %}
-        <!-- Color Match Activity -->
-        <div class="row justify-content-center mt-5">
-            <div class="col-12 text-center">
-                <p class="activity-hint"><strong>Tip:</strong> {{ hint }}</p>
-            </div>
-            <div class="col-10 d-flex justify-content-around flex-wrap glass-options" id="glass-options">
-                {% for i in range(4) %}
-                <div class="wine-glass" data-index="{{ i }}">
-                    <img src="{{ url_for('static', filename='glass_outline.png') }}" class="glass-base" />
-                    <div class="glass-fill"></div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-
-        <script>
-            const colorOptions = JSON.parse('["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"]');
-            const correctIndex = 0;
-        </script>
-        <script src="{{ url_for('static', filename='color_match.js') }}"></script>
-
-        {% else %}
-        <!-- Placeholder for non-implemented activities -->
-        <div class="text-center mt-5">
-            <p>This activity type is not yet implemented on this page.</p>
-        </div>
-        {% endif %}
 
         <!-- Back Button -->
         <div id="summary-back-button" class="row mt-4" style="display: none;">
