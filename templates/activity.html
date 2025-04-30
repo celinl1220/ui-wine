@@ -40,6 +40,18 @@
 
         <p class="activity-hint">Hint: {{ hint }}</p>
 
+        <div class="activity-content">
+            {% if activity_number == 1 %}
+                {% include 'activity1_notes.html' %}
+            {% elif activity_number == 2 %}
+                {% include 'activity2_colors.html' %}
+            {% elif activity_number == 3 %}
+                {% include 'activity3_pairings.html' %}
+            {% else %}
+                <p>ERROR!!</p>
+            {% endif %}
+        </div>
+
         <div class="row">
             <div class="col-12">
                 <form method="post"
