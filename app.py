@@ -207,6 +207,7 @@ def start_activity(varietal_name, activity_number):
 # When an activity is completed, update the session
 @app.route("/complete_varietal/<varietal_name>", methods=["POST"])
 def complete_varietal(varietal_name):
+    varietal = varietal_data.get(varietal_name.lower())
     if varietal_name not in varietals:
         return "Varietal not found", 404
 
@@ -218,7 +219,11 @@ def complete_varietal(varietal_name):
         progress.append(varietal_name)  # add varietal to progress
         session["progress"] = progress  # update session progress variable
 
-    return redirect(url_for("map")) # go back to map
+    return render_template(
+        "activity_complete.html",
+        varietal_name=varietal["varietal"],
+        varietal_url=varietal["varietal_url"],
+    )
 
 @app.route("/quiz", methods=["POST"])
 def quiz():
