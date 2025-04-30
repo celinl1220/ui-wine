@@ -1,3 +1,9 @@
 #map-buttons {
     visibility: hidden;
 }
+
+.take-quiz-form {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
