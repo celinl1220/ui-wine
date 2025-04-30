@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz {{ step }} of {{ total }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+  <a href="{{ url_for('map_view') }}" class="btn btn-hero">← map</a>
+
+  <div class="quiz-step-container">
+    {# show either custom customer or step #}
+    <h2>
+      Customer {{ q.customer if q.get('customer') is not none else step }}:
+      {{ q.title }}
+    </h2>
+    <p class="prompt">{{ q.prompt }}</p>
+
+    {% if q.type == 'images' %}
+      <form method="post" class="image-quiz-form">
+        <div class="image-options">
+          {% for idx, img_path in enumerate(q.images) %}
+            <button
+              type="submit"
+              name="choice"
+              value="{{ idx }}"
+              class="image-option
+                {% if show_feedback and idx == q.answer %} selected {% endif %}"
+            >
+              <img
+                src="{{ url_for('static', filename=img_path) }}"
+                alt="Option {{ idx+1 }}"
+              >
+            </button>
+          {% endfor %}
+        </div>
+      </form>
+    {% else %}
+      <form method="post">
+        {% for idx, choice in enumerate(q.choices) %}
+          <div class="form-check mb-3">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="choice"
+              id="c{{ idx }}"
+              value="{{ idx }}"
+              {% if loop.first %}checked{% endif %}
+            >
+            <label class="form-check-label" for="c{{ idx }}">
+              {{ choice }}
+            </label>
+          </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-hero">Submit</button>
+      </form>
+    {% endif %}
+
+    {# show wrong‐answer feedback #}
+    {% if error %}
+      <div class="alert alert-danger mt-3">{{ error }}</div>
+    {% endif %}
+
+    {# show correct feedback + continue button #}
+    {% if show_feedback %}
+      <div class="correct-feedback mt-4">
+        Correct Answer:
+        {% if q.type == 'images' %}
+          Option {{ q.answer + 1 }}
+        {% else %}
+          {{ q.choices[q.answer] }}
+        {% endif %}
+        {% if q.explanation %}
+          ({{ q.explanation }})
+        {% endif %}
+      </div>
+      <form method="get" action="{{ url_for('quiz_step', step=step+1) }}">
+        <button type="submit" class="btn btn-hero mt-3">Continue</button>
+      </form>
+    {% endif %}
+
+  </div>
+</body>
+</html>
