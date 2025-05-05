@@ -18,7 +18,7 @@ varietal_data = {
         "activities": {
             1: {
                 "hint": "Riesling is never heavy or brooding. Think juicy fruits, fresh blooms, and zippy citrus.",
-                "hint_short": "Think juicy fruits, fesh blooms, and zippy citrus.",
+                "hint_short": "Think juicy fruits, fresh blooms, and zippy citrus.",
                 "correct_notes": ["lemon", "peach", "apple"],
             },
             2: {
