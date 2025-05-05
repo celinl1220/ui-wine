@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dropZone.classList.remove("highlight");
   
       const note = e.dataTransfer.getData("text/plain");
-      const dragged = document.querySelector(`img[data-note="${note}"]`);
+      const dragged = document.querySelector(`.drag-item[data-note="${note}"]`);
   
       if (!dragged) return;
   

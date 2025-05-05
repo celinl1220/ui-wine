@@ -1,15 +1,18 @@
 <!-- Drag and Drop Layout -->
-<div class="row justify-content-center align-items-start">
+<div class="row justify-content-center align-items-start mt-5">
 
     <!-- Draggable notes (unchanged) -->
     <div class="col-md-6">
         <div class="notes-grid">
-            {% for note in ["apple", "lemon", "peach", "vanilla", "grass", "cherry", "oak", "smoke"] %}
-            <img src="{{ url_for('static', filename='images/notes/' + note + '.png') }}" alt="{{ note }}"
-                class="drag-item" draggable="true" data-note="{{ note }}">
-            {% endfor %}
+          {% for note in ["apple", "lemon", "peach", "vanilla", "grass", "cherry", "oak", "smoke"] %}
+            <div class="drag-item" draggable="true" data-note="{{ note }}">
+              <img src="{{ url_for('static', filename='images/notes/' + note + '.png') }}"
+                   alt="{{ note }}">
+              <div class="note-label">{{ note.replace("_", " ")|title }}</div>
+            </div>
+          {% endfor %}
         </div>
-    </div>
+      </div>
 
 
     <!-- Glass + Correct Notes side-by-side -->
