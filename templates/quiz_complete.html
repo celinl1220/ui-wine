@@ -1,33 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Quiz Complete</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-</head>
-<body class="quiz-complete" style="text-align:center; padding:4rem; background:#fcf9f3;">
+{% extends "base.html" %}
 
-  <h1 style="color:#6e2f5b; font-size:2.5rem; margin-bottom:1rem;">Quiz Complete</h1>
+{% block title %}Quiz Complete — Vine Voyage{% endblock %}
 
-  <p style="font-size:2rem; color:#40281b; margin-bottom:2rem;">
-    You got <strong>{{ score }} / {{ total }}</strong> right! ⭐
-  </p>
+{% block extra_head %}
+  <style>
+    /* Make both buttons identical size */
+    .quiz-complete .btn-hero {
+      width: 180px;               /* same width */
+      height: 60px;               /* same height */
+      display: inline-flex;       /* allow centering */
+      align-items: center;        /* vertical center text */
+      justify-content: center;    /* horizontal center text */
+      padding: 0;                 /* remove any extra padding */
+      font-size: 1.25rem;         /* keep your font sizing */
+    }
+  </style>
+{% endblock %}
 
-  <p style="font-size:1.25rem; color:#7e5f6c; margin-bottom:3rem;">
-    Hit “Retake” to start over or “Back to Map” to review your varietal adventure.
-  </p>
+{% block content %}
+  <div class="quiz-complete" style="text-align:center; padding:4rem; background:transparent;">
 
-  <div style="display:flex; justify-content:center; gap:2rem;">
-    <form action="{{ url_for('quiz_retake') }}" method="post">
-      <button type="submit" class="btn btn-hero" style="padding:1rem 2rem; font-size:1.25rem;">
-        Retake
-      </button>
-    </form>
+    <h1 style="color:#6e2f5b; font-size:2.5rem; margin-bottom:1rem;">Quiz Complete</h1>
 
-    <a href="{{ url_for('map_view') }}" class="btn btn-hero" style="padding:1rem 2rem; font-size:1.25rem;">
-      Back to Map
-    </a>
+    <p style="font-size:2rem; color:#40281b; margin-bottom:2rem;">
+      You got <strong>{{ score }} / {{ total }}</strong> right! ⭐
+    </p>
+
+    <p style="font-size:1.25rem; color:#7e5f6c; margin-bottom:3rem;">
+      Hit “Retake” to start over or “Back to Map” to review your varietal adventure.
+    </p>
+
+    <div style="display:flex; justify-content:center; gap:2rem;">
+      <form action="{{ url_for('quiz_retake') }}" method="post">
+        <button type="submit" class="btn btn-hero">
+          Retake
+        </button>
+      </form>
+
+      <a href="{{ url_for('map') }}" class="btn btn-hero">
+        Back to Map
+      </a>
+    </div>
+
   </div>
-
-</body>
-</html>
+{% endblock %}
