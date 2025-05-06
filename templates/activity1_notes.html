@@ -3,29 +3,32 @@
     <!-- Draggable notes -->
     <div class="col-md-6">
       <div class="notes-grid">
-        {% for note in ["apple", "lemon", "peach", "vanilla", "grass", "cherry", "oak", "smoke"] %}
-          <div class="drag-item" draggable="true" data-note="{{ note }}">
-            <img src="{{ url_for('static', filename='images/notes/' + note + '.png') }}" alt="{{ note }}">
-            <div class="note-label">{{ note.replace("_", " ")|title }}</div>
-          </div>
-        {% endfor %}
+        <!-- Notes will be added here dynamically-->
       </div>
     </div>
   
-    <!-- Drop Zone Column -->
-    <div class="col-md-2 d-flex flex-column align-items-center">
-      <div class="drop-zone">
-        <img src="{{ url_for('static', filename='glass_outline.png') }}" alt="Wine Glass"
-             class="img-fluid" style="max-width: 180px;" />
-      </div>
-      <div class="correct-notes d-flex flex-wrap justify-content-center mt-3"></div>
+<!-- Drop Zone + Correct Notes -->
+<div class="d-flex align-items-start">
+    <!-- Wine Glass Column -->
+    <div class="drop-zone">
+      <img src="{{ url_for('static', filename='glass_outline.png') }}" alt="Wine Glass"
+           class="img-fluid" style="max-width: 180px;" />
     </div>
+  
+    <!-- Correct Notes Grid -->
+    <div class="correct-notes d-flex flex-wrap" style="width: 200px; padding-top: 10px; justify-content: start;">
+      <!-- Notes will be dynamically inserted here -->
+    </div>
+  </div>
+
+
   </div>
   
   <!-- Summary layout (initially empty, filled by JS) -->
   <div id="summary-layout"></div>
   
   <script>
+    const noteOptions = JSON.parse('{{ note_options | tojson | safe }}');
     const correctNotes = JSON.parse('{{ correct_notes | tojson | safe }}');
   </script>
   <script src="{{ url_for('static', filename='drag_drop.js') }}"></script>

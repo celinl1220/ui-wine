@@ -20,6 +20,18 @@
   align-items: center;
 }
 
+.note-item img {
+  max-width: 60px;
+  height: auto;
+}
+
+.note-item .note-label {
+  font-size: 0.9rem;
+  margin-top: 4px;
+  text-align: center;
+}
+
+
   .drag-item {
     display: flex;
     flex-direction: column;
@@ -48,10 +60,12 @@
     border-color: #6c757d;
   }
   
-  .correct-notes img {
-    width: 50px;
-    height: 50px;
-    margin: 4px;
+  .correct-notes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
   
   .sparkle {
@@ -107,7 +121,7 @@
     text-align: center;
     pointer-events: none;
   }
-  
+
   .sparkle-feedback {
     position: absolute;
     font-size: 2.5rem;

@@ -1,11 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
   const dropZone = document.querySelector(".drop-zone");
   const correctContainer = document.querySelector(".correct-notes");
-  const notesGridWrapper = document.querySelector(".notes-grid").parentElement;
+  const notesGrid = document.querySelector(".notes-grid");
+  const notesGridWrapper = notesGrid.parentElement;
   const dropZoneWrapper = dropZone.parentElement;
   const activityWrapper = document.querySelector(".activity-wrapper");
 
   let matchedNotes = [];
+
+  // Dynamically generate draggable items
+  noteOptions.forEach(note => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "drag-item";
+    wrapper.setAttribute("draggable", "true");
+    wrapper.dataset.note = note;
+
+    const img = document.createElement("img");
+    img.src = `/static/images/notes/${note}.png`;
+    img.alt = note;
+
+    const label = document.createElement("div");
+    label.className = "note-label";
+    label.textContent = note
+      .split("_")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(label);
+    notesGrid.appendChild(wrapper);
+  });
 
   document.querySelectorAll(".drag-item").forEach(img => {
     img.addEventListener("dragstart", (e) => {
@@ -32,9 +56,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!dragged) return;
 
     if (correctNotes.includes(note)) {
-      dragged.draggable = false;
-      dragged.classList.remove("drag-item");
-      correctContainer.appendChild(dragged);
+      
+      const wrappedNote = document.createElement("div");
+      wrappedNote.className = "note-item text-center";
+    
+      const imgClone = dragged.querySelector("img").cloneNode(true);
+      const labelClone = dragged.querySelector(".note-label").cloneNode(true);
+    
+      wrappedNote.appendChild(imgClone);
+      wrappedNote.appendChild(labelClone);
+      correctContainer.appendChild(wrappedNote);
+
+      dragged.remove();
+
+
       showSparkleAtDrop(e);
 
       if (!matchedNotes.includes(note)) {

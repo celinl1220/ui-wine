@@ -56,20 +56,21 @@
             {% elif activity_number == 3 %}
                 {% include 'activity3_pairings.html' %}
             {% endif %}
+        </div> 
         </div>
 
-    </div>
-    
-    <div> 
+        <div>
+
         <!-- Back Button -->
         <div id="summary-back-button" class="row mt-4">
             <div class="col-12 text-center">
                 <form method="post"
                     action="{{ url_for('activity_intro', varietal_name=varietal_url, activity_number=activity_number) }}">
-                    <button type="submit" class="btn-hero btn-back act-btn">back</button>
+                    <button type="submit" class="btn-hero btn-back act-btn" id="back-bu">back</button>
                 </form>
             </div>
         </div>
+
     </div>
 
     <!-- Bootstrap JS + jQuery -->
