@@ -68,7 +68,7 @@ varietal_data = {
                 "correct_index": 2
             },
             3: {
-                "hint": "Sauvignon Blanc is perfect with **fresh, **zesty**, and **herbaceous** dishes.",
+                "hint": "Sauvignon Blanc is perfect with **fresh**, **zesty**, and **herbaceous** dishes.",
                 "hint_short": "Sauvignon Blanc is perfect with **fresh**, **zesty**, and **herbaceous** dishes."
             }
         }
@@ -94,7 +94,7 @@ varietal_data = {
             },
             3: {
                 "hint": "Chardonnay pairs wonderfully with **rich**, **creamy**, and **buttery** foods.",
-                "hint_short": "Chardonnay pairs wonderfully with **rich, **creamy**, and **buttery** foods."
+                "hint_short": "Chardonnay pairs wonderfully with **rich**, **creamy**, and **buttery** foods."
             }
         }
     },
@@ -106,8 +106,8 @@ varietal_data = {
         "varietal_url": "pinot_noir",
         "activities": {
             1: {
-                "hint": "Pinot Noir is delicate, earthy, and quietly complex. Think soft spice and subtle floral notes.",
-                "hint_short": "Think soft spice and subtle floral notes.",
+                "hint": "Pinot Noir is **delicate**, **earthy**, and quietly **complex**. Think **soft spice** and subtle **floral** notes.",
+                "hint_short": "Think **soft spice** and subtle **floral** notes.",
                 "note_options": ["cherry", "vanilla", "raspberry", "mushroom", "butter", "blackberry", "clove", "cinnamon"],
                 "correct_notes": ["cherry", "clove", "raspberry", "mushroom"],
             },
@@ -124,15 +124,15 @@ varietal_data = {
         }
     },
     "cabernet_sauvignon": {
-        "location": "Welcome to the **Caverns of Cabernet Sauvignon",
+        "location": "Caverns of Cabernet Sauvignon",
         "title": "Welcome to the **Caverns of Cabernet Sauvignon**",
         "descriptions": ["Cabernet Sauvignon is **bold**, **structured**, and unapologetically **full-bodied**.", "Think **blackcurrant**, **tobacco**, and a whisper of **cedar**.", "It's powerful and intense—for those who like their wines with serious presence."],
         "varietal": "Cabernet Sauvignon",
         "varietal_url": "cabernet_sauvignon",
         "activities": {
             1: {
-                "hint": "Cabernet Sauvignon is bold, structured, and unapologetically full-bodied. Think dark berries, dried leaves, and a touch of wood and smoke.",
-                "hint_short": "Think dark berries, dried leaves, and the fireplace.",
+                "hint": "Cabernet Sauvignon is **bold**, **structured**, and unapologetically **full-bodied**. Think **dark berries**, **dried leaves**, and a touch of **wood** and **smoke**.",
+                "hint_short": "Think **dark berries**, **dried leaves**, and the **fireplace**.",
                 "note_options": ["tobacco", "butter", "peach", "black_currant", "cedar", "vanilla", "grass", "blackberry"],
                 "correct_notes": ["black_currant", "blackberry", "tobacco", "cedar"],
             },
