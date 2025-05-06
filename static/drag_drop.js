@@ -59,18 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
       
       const wrappedNote = document.createElement("div");
       wrappedNote.className = "note-item text-center";
-    
       const imgClone = dragged.querySelector("img").cloneNode(true);
       const labelClone = dragged.querySelector(".note-label").cloneNode(true);
-    
+
       wrappedNote.appendChild(imgClone);
       wrappedNote.appendChild(labelClone);
       correctContainer.appendChild(wrappedNote);
 
-      dragged.remove();
-
-
       showSparkleAtDrop(e);
+      dragged.remove();
 
       if (!matchedNotes.includes(note)) {
         matchedNotes.push(note);
@@ -87,98 +84,106 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  function showXAtDrop(event) {
-    const xMark = document.createElement("div");
-    xMark.textContent = "✖";
-    xMark.className = "x-feedback-drag";
-
-    const rect = dropZone.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    xMark.style.left = `${x}px`;
-    xMark.style.top = `${y}px`;
-
-    dropZone.appendChild(xMark);
-    xMark.getBoundingClientRect();
-
-    requestAnimationFrame(() => {
-      xMark.style.opacity = "0";
-      xMark.style.transform = "translateY(-30px)";
-    });
-
-    setTimeout(() => xMark.remove(), 1000);
-  }
-
   function showSparkleAtDrop(event) {
     const sparkle = document.createElement("div");
     sparkle.textContent = "✨";
     sparkle.className = "x-feedback-drag";
-
-    const rect = dropZone.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    sparkle.style.left = `${x}px`;
-    sparkle.style.top = `${y}px`;
-
-    dropZone.appendChild(sparkle);
-    sparkle.getBoundingClientRect();
-
+  
+    // Use page-relative coordinates
+    sparkle.style.left = `${event.pageX}px`;
+    sparkle.style.top = `${event.pageY}px`;
+  
+    document.body.appendChild(sparkle);
+    sparkle.getBoundingClientRect(); // force reflow
+  
     requestAnimationFrame(() => {
       sparkle.style.opacity = "0";
       sparkle.style.transform = "translateY(-30px)";
     });
-
+  
     setTimeout(() => sparkle.remove(), 1000);
   }
+  
+  function showXAtDrop(event) {
+    const xMark = document.createElement("div");
+    xMark.textContent = "✖";
+    xMark.className = "x-feedback-drag";
+  
+    xMark.style.left = `${event.pageX}px`;
+    xMark.style.top = `${event.pageY}px`;
+  
+    document.body.appendChild(xMark);
+    xMark.getBoundingClientRect(); // force reflow
+  
+    requestAnimationFrame(() => {
+      xMark.style.opacity = "0";
+      xMark.style.transform = "translateY(-30px)";
+    });
+  
+    setTimeout(() => xMark.remove(), 1000);
+  }
+  
 
   function showSummaryState() {
     notesGridWrapper.remove();
     dropZoneWrapper.remove();
-
+  
     const summaryRow = document.createElement("div");
     summaryRow.className = "d-flex justify-content-center align-items-center fade-in";
-
+  
     const leftContainer = document.createElement("div");
     leftContainer.className = "d-flex flex-column align-items-end me-3";
-
+  
     const glassContainer = document.createElement("div");
     glassContainer.className = "text-center";
     glassContainer.style.maxWidth = "180px";
-
+  
     const glassImg = document.createElement("img");
     glassImg.src = "/static/glass_outline.png";
     glassImg.alt = "Wine Glass";
     glassImg.className = "img-fluid";
     glassContainer.appendChild(glassImg);
-
+  
     const rightContainer = document.createElement("div");
     rightContainer.className = "d-flex flex-column align-items-start ms-3";
-
+  
     correctNotes.forEach((note, index) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "note-item text-center mb-3";
+  
       const img = document.createElement("img");
       img.src = `/static/images/notes/${note}.png`;
       img.alt = note;
-      img.className = "summary-note mb-2";
-
+      img.className = "summary-note";
+  
+      const label = document.createElement("div");
+      label.className = "note-label mt-1";
+      label.textContent = note
+        .split("_")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+  
+      wrapper.appendChild(img);
+      wrapper.appendChild(label);
+  
       if (correctNotes.length === 3 && index === 2) {
-        rightContainer.appendChild(img);
+        rightContainer.appendChild(wrapper);
       } else if (index < 2) {
-        leftContainer.appendChild(img);
+        leftContainer.appendChild(wrapper);
       } else {
-        rightContainer.appendChild(img);
+        rightContainer.appendChild(wrapper);
       }
     });
-
+  
     summaryRow.appendChild(leftContainer);
     summaryRow.appendChild(glassContainer);
     summaryRow.appendChild(rightContainer);
     activityWrapper.appendChild(summaryRow);
-
+    document.getElementById("drag-drop-row")?.classList.remove("drag-phase-row");
+  
     const backBtn = document.getElementById("summary-back-button");
     if (backBtn) backBtn.style.display = "block";
-
+  
     const continueBtn = document.getElementById("continue-btn");
     if (continueBtn) continueBtn.style.display = "inline-block";
   }
