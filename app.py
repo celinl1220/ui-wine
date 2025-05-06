@@ -612,7 +612,6 @@ def home():
 # 2) Map screen
 @app.route("/map", methods=["GET","POST"])
 def map():
-def map():
     progress = session.get("progress", [])
     all_completed = set(progress) >= set(varietals)
     return render_template(
