@@ -34,7 +34,7 @@
             {% for v in varietals %}
             <form method="post" action="{{ url_for('varietal_intro', varietal_name=v) }}">
                 <button type="submit" class="btn-hero varietal-button" id="btn-{{ v }}" data-varietal="{{ v }}">
-                    {{ varietal_data[v]["title"].split("Welcome to the ")[-1] }}
+                    {{ varietal_data[v]["location"] }}
                 </button>
             </form>
             {% endfor %}

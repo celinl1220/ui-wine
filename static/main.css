@@ -61,6 +61,10 @@ h3, p, .prompt {
   color: var(--color-dark-grey);
 }
 
+.highlighted-text {
+  color: var(--color-accent);
+}
+
 /*--------------------------------------
   4. Buttons
 ---------------------------------------*/

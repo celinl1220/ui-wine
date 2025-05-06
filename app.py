@@ -1,4 +1,6 @@
 from flask import Flask, render_template, session, redirect, url_for, Response, request, jsonify
+from markupsafe import Markup
+import re
 import os
 app = Flask(__name__)
 
@@ -9,56 +11,69 @@ app.jinja_env.globals.update(enumerate=enumerate)
 varietals = ["riesling", "sauvignon_blanc", "chardonnay", "pinot_noir", "cabernet_sauvignon"]
 TOTAL_VARIETALS = len(varietals)
 
+def format_bold_text(text):
+    # Convert **bold** to <strong>bold</strong>
+    def boldify(s):
+        return Markup(re.sub(r"\*\*(.*?)\*\*", r"<strong class='highlighted-text'>\1</strong>", s))
+
+    if isinstance(text, list):
+        return [boldify(item) for item in text]
+    else:
+        return boldify(text)
+
 varietal_data = {
     "riesling": {
-        "title": "Welcome to the Crystal Lakes of Riesling",
-        "descriptions": ["Riesling is light, aromatic, and often slightly sweet.", "Think zippy acidity, juicy fruit, and floral aromas.", "It's refreshing and expressive—perfect for those who like a little personality in their glass."],
+        "location": "Crystal Lakes of Riesling",
+        "title": "Welcome to the **Crystal Lakes of Riesling**",
+        "descriptions": ["Riesling is **light**, **aromatic**, and often **slightly sweet**.", "Think **zippy acidity**, **juicy fruit**, and **floral aromas**.", "It's refreshing and expressive—perfect for those who like a little personality in their glass."],
         "varietal": "Riesling",
         "varietal_url": "riesling",
         "activities": {
             1: {
-                "hint": "Riesling is never heavy or brooding. Think juicy fruits, fresh blooms, and zippy citrus.",
-                "hint_short": "Think juicy fruits, fesh blooms, and zippy citrus.",
+                "hint": "Riesling is **never heavy or brooding**. Think **juicy fruits**, **fresh blooms**, and **zippy citrus**.",
+                "hint_short": "Think **juicy fruits**, **fresh blooms**, and **zippy citrus**.",
                 "correct_notes": ["lemon", "peach", "apple"],
             },
             2: {
-                "hint": "This wine is typically pale straw to light gold.",
-                "hint_short": "This wine is typically pale straw to light gold.",
+                "hint": "This wine is typically **pale straw to light gold**.",
+                "hint_short": "This wine is typically **pale straw to light gold**.",
                 "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
                 "correct_index": 0
             },
             3: {
-                "hint": "Think spicy food, light meats, and citrusy dishes!",
-                "hint_short": "Riesling shines with spicy, sweet, and tangy dishes."
+                "hint": "Think **spicy food**, **light meats**, and **citrusy dishes**!",
+                "hint_short": "Riesling shines with **spicy**, **sweet**, and **tangy dishes**."
             }
         }
     },
     "sauvignon_blanc": {
-        "title": "Welcome to the Valley of Sauvignon Blanc",
-        "descriptions": ["Sauvignon Blanc is fresh, green, and unapologetically zesty.", "Known for its high acidity and bold aromatics, this wine brings to mind citrus groves, cut grass, and cool ocean breezes.", "It's sharp, sassy, and always refreshing."],
+        "location": "Valley of Sauvignon Blanc",
+        "title": "Welcome to the **Valley of Sauvignon Blanc**",
         "varietal": "Sauvignon Blanc",
         "varietal_url": "sauvignon_blanc",
+        "descriptions": ["Sauvignon Blanc is **fresh**, **green**, and unapologetically **zesty**.", "Known for its **high acidity** and **bold aromatics**, this wine brings to mind **citrus groves**, **cut grass**, and cool **ocean breezes**.", "It's **sharp**, **sassy**, and **always refreshing**."],
         "activities": {
             1: {
-                "hint": "Picture green herbs, tropical bursts, and a splash of sharp citrus.",
-                "hint_short": "Picture green herbs, tropical bursts, and a splash of sharp citrus.",
+                "hint": "Picture **green herbs**, **tropical bursts**, and a splash of **sharp citrus**.",
+                "hint_short": "Picture **green herbs**, **tropical bursts**, and a splash of **sharp citrus**.",
                 "correct_notes": ["lemon", "peach", "apple"],
             },
             2: {
-                "hint": "This wine is typically pale straw with greenish glints.",
-                "hint_short": "This wine is typically pale straw with greenish glints.",
+                "hint": "This wine is typically **pale straw with greenish glints**.",
+                "hint_short": "This wine is typically **pale straw with greenish glints**.",
                 "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
                 "correct_index": 0
             },
             3: {
-                "hint": "Sauvignon Blanc is perfect with fresh, zesty, and herbaceous dishes.",
-                "hint_short": "Sauvignon Blanc is perfect with fresh, zesty, and herbaceous dishes."
+                "hint": "Sauvignon Blanc is perfect with **fresh, **zesty**, and **herbaceous** dishes.",
+                "hint_short": "Sauvignon Blanc is perfect with **fresh**, **zesty**, and **herbaceous** dishes."
             }
         }
     },
     "chardonnay": {
-        "title": "Welcome to the Golden Hills of Chardonnay",
-        "descriptions": ["Chardonnay is smooth, versatile, and effortlessly elegant.", "Think ripe pear, creamy vanilla, and a hint of toasted oak.", "It’s rich yet balanced—great for those who enjoy a little luxury in every sip."],
+        "location": "Golden Hills of Chardonnay",
+        "title": "Welcome to the **Golden Hills of Chardonnay**",
+        "descriptions": ["Chardonnay is **smooth**, **versatile**, and effortlessly **elegant**.", "Think ripe **pear**, creamy **vanilla**, and a hint of **toasted oak**.", "It's **rich yet balanced**—great for those who enjoy a little luxury in every sip."],
         "varietal": "Chardonnay",
         "varietal_url": "chardonnay",
         "activities": {
@@ -68,20 +83,21 @@ varietal_data = {
                 "correct_notes": ["lemon", "peach", "apple"],
             },
             2: {
-                "hint": "This wine ranges from pale gold to rich, buttery yellow.",
-                "hint_short": "This wine ranges from pale gold to rich, buttery yellow.",
+                "hint": "This wine ranges from **pale gold to rich, buttery yellow**.",
+                "hint_short": "This wine ranges from **pale gold to rich, buttery yellow**.",
                 "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
                 "correct_index": 0
             },
             3: {
-                "hint": "Chardonnay pairs wonderfully with rich, creamy, and buttery foods.",
-                "hint_short": "Chardonnay pairs wonderfully with rich, creamy, and buttery foods."
+                "hint": "Chardonnay pairs wonderfully with **rich**, **creamy**, and **buttery** foods.",
+                "hint_short": "Chardonnay pairs wonderfully with **rich, **creamy**, and **buttery** foods."
             }
         }
     },
     "pinot_noir": {
-        "title": "Welcome to the Forest of Pinot Noir",
-        "descriptions": ["Pinot Noir is delicate, earthy, and quietly complex.", "Think ripe cherry, soft spice, and subtle floral notes.", "It's graceful and layered—perfect for those who appreciate a softer kind of depth."],
+        "location": "Forest of Pinot Noir",
+        "title": "Welcome to the **Forest of Pinot Noir**",
+        "descriptions": ["Pinot Noir is **delicate**, **earthy**, and quietly **complex**.", "Think ripe **cherry**, **soft spice**, and subtle **floral** notes.", "It's graceful and layered—perfect for those who appreciate a softer kind of depth."],
         "varietal": "Pinot Noir",
         "varietal_url": "pinot_noir",
         "activities": {
@@ -91,20 +107,21 @@ varietal_data = {
                 "correct_notes": ["lemon", "peach", "apple"],
             },
             2: {
-                "hint": "This wine is typically light ruby to translucent garnet.",
-                "hint_short": "This wine is typically light ruby to translucent garnet.",
+                "hint": "This wine is typically **light ruby to translucent garnet**.",
+                "hint_short": "This wine is typically **light ruby to translucent garnet**.",
                 "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
                 "correct_index": 0
             },
             3: {
-                "hint": "Pinot Noir is a great match for earthy, savory, and subtly spiced dishes.",
-                "hint_short": "Pinot Noir is a great match for earthy, savory, and subtly spiced dishes."
+                "hint": "Pinot Noir is a great match for **earthy**, **savory**, and subtly **spiced** dishes.",
+                "hint_short": "Pinot Noir is a great match for **earthy**, **savory**, and subtly **spiced** dishes."
             }
         }
     },
     "cabernet_sauvignon": {
-        "title": "Welcome to the Caverns of Cabernet Sauvignon",
-        "descriptions": ["Cabernet Sauvignon is bold, structured, and unapologetically full-bodied.", "Think blackcurrant, tobacco, and a whisper of cedar.", "It's powerful and intense—for those who like their wines with serious presence."],
+        "location": "Welcome to the **Caverns of Cabernet Sauvignon",
+        "title": "Welcome to the **Caverns of Cabernet Sauvignon**",
+        "descriptions": ["Cabernet Sauvignon is **bold**, **structured**, and unapologetically **full-bodied**.", "Think **blackcurrant**, **tobacco**, and a whisper of **cedar**.", "It's powerful and intense—for those who like their wines with serious presence."],
         "varietal": "Cabernet Sauvignon",
         "varietal_url": "cabernet_sauvignon",
         "activities": {
@@ -114,14 +131,14 @@ varietal_data = {
                 "correct_notes": ["lemon", "peach", "apple"],
             },
             2: {
-                "hint": "This wine is deep ruby to inky purple, often nearly opaque.",
-                "hint_short": "This wine is deep ruby to inky purple, often nearly opaque.",
+                "hint": "This wine is **deep ruby to inky purple**, often nearly opaque.",
+                "hint_short": "This wine is **deep ruby to inky purple**, often nearly opaque.",
                 "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
                 "correct_index": 0
             },
             3: {
-                "hint": "Cabernet Sauvignon complements hearty, grilled, and bold-flavored meals.",
-                "hint_short": "Cabernet Sauvignon complements hearty, grilled, and bold-flavored meals."
+                "hint": "Cabernet Sauvignon complements **hearty**, **grilled**, and **bold-flavored** meals.",
+                "hint_short": "Cabernet Sauvignon complements **hearty**, **grilled**, and **bold-flavored** meals."
             }
         }
     }
@@ -131,7 +148,7 @@ activities = {
     1: {
         "name": "Drag and Drop the Notes",
         "button": "Start Tapping",
-        "instructions": "Tap on the images that feel like {{ varietal_name }}. Avoid anything that doesn't match the vibe."
+        "instructions": "**Tap** on the images that feel like {{ varietal_name }}. Avoid anything that doesn't match the vibe."
     },
     2: {
         "name": "Color Me",
@@ -374,8 +391,8 @@ def varietal_intro(varietal_name):
 
     return render_template(
         "varietal_intro.html", 
-        title=data["title"], 
-        descriptions=data["descriptions"],
+        title=format_bold_text(data["title"]), 
+        descriptions=format_bold_text(data["descriptions"]),
         varietal=data["varietal"],
         varietal_url=data["varietal_url"]
     )
@@ -394,10 +411,10 @@ def activity_intro(varietal_name, activity_number):
         varietal_name=varietal["varietal"],
         activity_number=activity_number,
         activity_name=activity["name"],
-        activity_instructions=activity["instructions"].replace("{{ varietal_name }}", varietal["varietal"]),
+        activity_instructions=format_bold_text(activity["instructions"].replace("{{ varietal_name }}", varietal["varietal"])),
         activity_button=activity["button"],
         varietal_url=varietal["varietal_url"],
-        hint=varietal_activities["hint"]
+        hint=format_bold_text(varietal_activities["hint"])
     )
 
 @app.route("/learn/<varietal_name>/<int:activity_number>/start", methods=["POST"])
@@ -423,7 +440,7 @@ def start_activity(varietal_name, activity_number):
         activity_number=activity_number,
         activity_name=activity["name"],
         varietal_url=varietal["varietal_url"],
-        hint=varietal_activities["hint_short"],
+        hint=format_bold_text(varietal_activities["hint_short"]),
         current_food=current_food, # only for activity 3, 
         correct_notes=varietal_activities.get("correct_notes", []),
         color_options=varietal_activities.get("color_options", []),
