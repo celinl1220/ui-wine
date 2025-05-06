@@ -11,16 +11,16 @@
 </head>
 
 <body>
-    <div class="activity-wrapper">
-        <div class="row">
-            <div class="col-md-1">
+    <div class="activity-wrapper  container-fluid">
+        <div class="row my-3 align-items-left" style="min-height: 9vh;">
+            <div class="col-md-2 d-flex justify-content-start">
                 <!-- Back to map button -->
                 <form method="post" action="{{ url_for('map') }}">
                     <button type="submit" class="btn-hero btn-back">map</button>
                 </form>
             </div>
-            <div class="col-md-3"></div>
-            <div class="col-md-4">{{ varietal_name }}</div>
+            <!-- <div class="col-md-3"></div> -->
+            <div class="col-md-8 text-center"><span class="varietal-label">{{ varietal_name }}</span></div>
         </div>
         <h1 class="activity-title">{{ activity_name }}</h1>
         <p class="activity-instructions">{{ activity_instructions }}</p>
@@ -28,7 +28,7 @@
 
         <form method="post"
             action="{{ url_for('start_activity', varietal_name=varietal_url, activity_number=activity_number) }}">
-            <button type="submit" class="btn-hero">{{ activity_button }}</button>
+            <button type="submit" class="btn-hero next-btn">{{ activity_button }}</button>
         </form>
 
         <div class="row">

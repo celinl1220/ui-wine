@@ -12,7 +12,12 @@
 </head>
 
 <body>
-    <div class="complete-wrapper">
+    <div class="complete-wrapper container-fluid">
+        <!-- Top Bar -->
+        <div class="row my-3 align-items-left" style="min-height: 9vh;">
+            <div class="col-md-2 d-flex justify-content-start"></div>
+            <div class="col-md-8 text-center"><span class="varietal-label">{{ varietal_name }}</span></div>
+        </div>
         <h1 class="complete-title">That's a Wrap on {{ varietal_name }}</h1>
 
         <p class="complete-text">Cheers for making it through Riesling!</p>
@@ -20,12 +25,12 @@
         <p class="complete-text">Hit "Replay" to start over or "Back to Map" to choose a new varietal adventure.</p>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 d-flex justify-content-end">
                 <form method="post" action="{{ url_for('varietal_intro', varietal_name=varietal_url) }}">
                     <button type="submit" class="btn-hero">replay</button>
                 </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 d-flex justify-content-start">
                 <form method="post" action="{{ url_for('map') }}">
                     <button type="submit" class="btn-hero">back to map</button>
                 </form>

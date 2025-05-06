@@ -27,9 +27,7 @@
                     <button type="submit" class="btn-hero btn-back">map</button>
                 </form>
             </div>
-            <div class="col-md-8 text-center">
-                <h2>{{ varietal_name }}</h2>
-            </div>
+            <div class="col-md-8 text-center"><span class="varietal-label">{{ varietal_name }}</span></div>
             <div class="col-md-2 d-flex justify-content-end">
                 {% if activity_number == 3 %}
                 <form method="post" action="{{ url_for('complete_varietal', varietal_name=varietal_url) }}">
@@ -63,7 +61,7 @@
 
         <!-- Back Button -->
         <div id="summary-back-button" class="row mt-4">
-            <div class="col-12 text-center">
+            <div class="col-12">
                 <form method="post"
                     action="{{ url_for('activity_intro', varietal_name=varietal_url, activity_number=activity_number) }}">
                     <button type="submit" class="btn-hero btn-back act-btn" id="back-bu">back</button>

@@ -5,29 +5,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
 :root {
-  /* Base color: page background */
-  --color-base:       #F5E0B7;
+    /* Base color: page background */
+    --color-base: #F5E0B7;
 
-  /* Accent color: primary buttons, links, active states */
-  --color-accent:     #C65F3B;
+    /* Accent color: primary buttons, links, active states */
+    --color-accent: #C65F3B;
 
-  /* Light grey: cards, drop-zones, disabled states */
-  --color-light-grey: #E0E0E0;
+    /* Light grey: cards, drop-zones, disabled states */
+    --color-light-grey: #E0E0E0;
 
-  /* Dark grey: primary body & heading text */
-  --color-dark-grey:  #4A382A;
+    /* Dark grey: primary body & heading text */
+    --color-dark-grey: #4A382A;
 }
 
 /*--------------------------------------
   2. Global Reset & Base Styles
 ---------------------------------------*/
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
@@ -35,194 +36,231 @@ html, body {
     font-family: 'Inter', sans-serif;
     color: var(--color-dark-grey);
     line-height: 1.5;
-  }
+}
 
 a {
-  text-decoration: none;
-  color: var(--color-accent);
+    text-decoration: none;
+    color: var(--color-accent);
 }
+
 a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 /*--------------------------------------
   3. Typography
 ---------------------------------------*/
 /* Page titles & quiz headings */
-h1, h2 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  color: var(--color-dark-grey);
-  text-align: center;
-  margin-bottom: 30px;
+h1,
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--color-dark-grey);
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 /* Sub-titles and prompts */
-h3, p, .prompt {
-  font-family: 'Inter', sans-serif;
-  color: var(--color-dark-grey);
+h3,
+p,
+.prompt {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-dark-grey);
+    text-align: center;
+    padding-bottom: 10px;
 }
 
 .highlighted-text {
-  color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.varietal-label {
+    background-color: var(--color-accent);
+    color: var(--color-base);
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 30px;
 }
 
 /*--------------------------------------
   4. Buttons
 ---------------------------------------*/
-.btn-hero, button.btn-hero {
-  display: inline-block;
-  align-items: center;
-  background: var(--color-accent);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  margin: 1px;
+.btn-hero,
+button.btn-hero {
+    display: inline-block;
+    align-items: center;
+    background: var(--color-accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    margin: 1px;
 }
+
 .btn-hero:hover {
-  background: #99577a; /* slightly lightened accent */
+    background: #99577a;
+    /* slightly lightened accent */
 }
 
 /* map and nav back buttons */
 .btn-hero.btn-back {
-  padding: 0.5rem 1rem;
-  font-weight: 300;
-  font-size: 1vw;
-  width: 9vw;
-  height: 6vh;
+    padding: 0.5rem 1rem;
+    font-weight: 300;
+    font-size: 1vw;
+    width: 9vw;
+    height: 6vh;
 }
 
 /* continue button */
 .btn-hero.btn-cont {
-  width: 12vw;
-  height: 8vh;
-  font-size: 2vw;
-  align-items: center;
-  padding: 0px;
+    width: 12vw;
+    height: 8vh;
+    font-size: 2vw;
+    align-items: center;
+    padding: 0px;
+}
+
+.btn-hero.next-btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*--------------------------------------
   5. Quiz Layout Components
 ---------------------------------------*/
 .quiz-step-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1rem;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
 }
 
 /* Draggables grid */
 #draggables {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Individual draggable items */
 .draggable-item {
-  background: var(--color-light-grey);
-  border-radius: 8px;
-  padding: 0.5rem;
-  text-align: center;
-  cursor: grab;
-  user-select: none;
+    background: var(--color-light-grey);
+    border-radius: 8px;
+    padding: 0.5rem;
+    text-align: center;
+    cursor: grab;
+    user-select: none;
 }
+
 .draggable-item:active {
-  opacity: 0.8;
+    opacity: 0.8;
 }
 
 /* Drop zone */
 #drop-zone {
-  background: var(--color-light-grey);
-  border: 2px dashed var(--color-dark-grey);
-  border-radius: 8px;
-  padding: 1rem;
-  min-height: 200px;
-  transition: background 0.2s;
+    background: var(--color-light-grey);
+    border: 2px dashed var(--color-dark-grey);
+    border-radius: 8px;
+    padding: 1rem;
+    min-height: 200px;
+    transition: background 0.2s;
 }
+
 #drop-zone.bg-light {
-  background: #e8e8e8;
+    background: #e8e8e8;
 }
 
 /* Selected count text */
 #selected-count {
-  margin-top: 0.5rem;
-  font-style: italic;
-  color: var(--color-dark-grey);
+    margin-top: 0.5rem;
+    font-style: italic;
+    color: var(--color-dark-grey);
 }
 
 /* Multiple-choice & image-pick grid */
 .image-pick-grid {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 1rem;
-  margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 /*--------------------------------------
   6. Progress & Map
 ---------------------------------------*/
 #progress-container {
-  width: 100%;
-  height: 10px;
-  background: var(--color-light-grey);
-  margin-bottom: 1rem;
+    width: 100%;
+    height: 10px;
+    background: var(--color-light-grey);
+    margin-bottom: 1rem;
 }
+
 #progress-bar {
-  height: 100%;
-  width: 0%;
-  background: var(--color-accent);
-  transition: width 0.3s ease;
+    height: 100%;
+    width: 0%;
+    background: var(--color-accent);
+    transition: width 0.3s ease;
 }
 
 /* Map “realm” cards */
 .map-card {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: filter 0.3s, opacity 0.3s;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: filter 0.3s, opacity 0.3s;
 }
+
 .map-card.inactive {
-  filter: grayscale(80%);
-  opacity: 0.5;
+    filter: grayscale(80%);
+    opacity: 0.5;
 }
+
 .map-card:hover {
-  filter: grayscale(0%);
-  opacity: 1;
+    filter: grayscale(0%);
+    opacity: 1;
 }
 
 /*--------------------------------------
   7. Final Quiz Complete Screen
 ---------------------------------------*/
 .final-quiz-complete {
-  text-align: center;
-  padding: 3rem 1rem;
+    text-align: center;
+    padding: 3rem 1rem;
 }
+
 .final-quiz-complete h2 {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
+
 .final-quiz-complete p {
-  margin: 0.5rem 0;
+    margin: 0.5rem 0;
 }
+
 .final-actions {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
 /*--------------------------------------
   8. Utility
 ---------------------------------------*/
 .text-center {
-  text-align: center;
+    text-align: center;
 }
-.mt-1 { margin-top: 1rem; }
-.mt-2 { margin-top: 2rem; }
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
