@@ -25,7 +25,7 @@ varietal_data = {
             2: {
                 "hint": "This wine is typically pale straw to light gold.",
                 "hint_short": "This wine is typically pale straw to light gold.",
-                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
+                "color_options": ["#F9F6D2", "#FAE1DC", "#ffbf6b", "#d42c48"],
                 "correct_index": 0
             },
             3: {
@@ -49,8 +49,8 @@ varietal_data = {
             2: {
                 "hint": "This wine is typically pale straw with greenish glints.",
                 "hint_short": "This wine is typically pale straw with greenish glints.",
-                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
-                "correct_index": 0
+                "color_options": ["#FFE3B3", "#e3747f", "#F4FCD9", "#ffbf6b"],
+                "correct_index": 2,
             },
             3: {
                 "hint": "Sauvignon Blanc is perfect with fresh, zesty, and herbaceous dishes.",
@@ -73,8 +73,8 @@ varietal_data = {
             2: {
                 "hint": "This wine ranges from pale gold to rich, buttery yellow.",
                 "hint_short": "This wine ranges from pale gold to rich, buttery yellow.",
-                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
-                "correct_index": 0
+                "color_options": ["#F4FCD9", "#e3747f", "#C9D4A5", "#E3DB94"],
+                "correct_index": 3,
             },
             3: {
                 "hint": "Chardonnay pairs wonderfully with rich, creamy, and buttery foods.",
@@ -89,16 +89,16 @@ varietal_data = {
         "varietal_url": "pinot_noir",
         "activities": {
             1: {
-                "hint": "Pinot Noir is delicate, earthy, and quietly complex. Think ripe cherry, soft spice, and subtle floral notes.",
-                "hint_short": "Think ripe cherry, soft spice, and subtle floral notes.",
+                "hint": "Pinot Noir is delicate, earthy, and quietly complex. Think soft spice and subtle floral notes.",
+                "hint_short": "Think soft spice and subtle floral notes.",
                 "note_options": ["cherry", "vanilla", "raspberry", "mushroom", "butter", "blackberry", "clove", "cinnamon"],
                 "correct_notes": ["cherry", "clove", "raspberry", "mushroom"],
             },
             2: {
                 "hint": "This wine is typically light ruby to translucent garnet.",
                 "hint_short": "This wine is typically light ruby to translucent garnet.",
-                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
-                "correct_index": 0
+                "color_options": ["#E3DB94", "#d49299", "#A42C2C", "#781F1F"],
+                "correct_index": 2
             },
             3: {
                 "hint": "Pinot Noir is a great match for earthy, savory, and subtly spiced dishes.",
@@ -113,16 +113,16 @@ varietal_data = {
         "varietal_url": "cabernet_sauvignon",
         "activities": {
             1: {
-                "hint": "Cabernet Sauvignon is bold, structured, and unapologetically full-bodied. Think blackcurrant, tobacco, and a whisper of cedar.",
-                "hint_short": "Think blackcurrant, tobacco, and a whisper of cedar.",
-                "note_options": ["lemon", "lime", "peach", "apple", "apricot", "pineapple", "grass", "cedar"],
-                "correct_notes": ["lemon", "peach", "apple"],
+                "hint": "Cabernet Sauvignon is bold, structured, and unapologetically full-bodied. Think dark berries, dried leaves, and a touch of wood and smoke.",
+                "hint_short": "Think dark berries, dried leaves, and the fireplace.",
+                "note_options": ["tobacco", "butter", "peach", "black_currant", "cedar", "vanilla", "grass", "blackberry"],
+                "correct_notes": ["black_currant", "blackberry", "tobacco", "cedar"],
             },
             2: {
                 "hint": "This wine is deep ruby to inky purple, often nearly opaque.",
                 "hint_short": "This wine is deep ruby to inky purple, often nearly opaque.",
-                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
-                "correct_index": 0
+                "color_options": ["#F4FCD9", "#d49299", "#4B0F1C", "#9F1D35"],
+                "correct_index": 2
             },
             3: {
                 "hint": "Cabernet Sauvignon complements hearty, grilled, and bold-flavored meals.",
@@ -139,7 +139,7 @@ activities = {
         "instructions": "Tap on the images that feel like {{ varietal_name }}. Avoid anything that doesn't match the vibe."
     },
     2: {
-        "name": "Color Me",
+        "name": "Color the Correct Glass",
         "button": "Start Coloring",
         "instructions": "Which color looks most like a glass of {{ varietal_name }}?"
     },
