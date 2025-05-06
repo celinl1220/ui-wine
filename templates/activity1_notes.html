@@ -1,34 +1,35 @@
 <!-- Drag and Drop Layout -->
-<div class="row justify-content-center align-items-start">
-
-    <!-- Draggable notes (unchanged) -->
+<div class="row justify-content-center align-items-start mt-5 drag-phase-row" id="drag-drop-row">
+    <!-- Draggable notes -->
     <div class="col-md-6">
-        <div class="notes-grid">
-            {% for note in ["apple", "lemon", "peach", "vanilla", "grass", "cherry", "oak", "smoke"] %}
-            <img src="{{ url_for('static', filename='images/notes/' + note + '.png') }}" alt="{{ note }}"
-                class="drag-item" draggable="true" data-note="{{ note }}">
-            {% endfor %}
-        </div>
+      <div class="notes-grid">
+        <!-- Notes will be added here dynamically-->
+      </div>
     </div>
-
-
-    <!-- Glass + Correct Notes side-by-side -->
-    <div class="col-md-4 d-flex justify-content-center align-items-start">
-        <div class="drop-zone-wrapper d-flex">
-            <!-- Glass -->
-            <div class="drop-zone me-3">
-                <img src="{{ url_for('static', filename='glass_outline.png') }}" alt="Wine Glass"
-                    class="img-fluid" style="max-width: 200px;" />
-            </div>
-
-            <!-- Correct Notes (now beside the glass) -->
-            <div class="correct-notes d-flex flex-column align-items-start justify-content-start"></div>
-        </div>
+  
+<!-- Drop Zone + Correct Notes -->
+<div class="d-flex align-items-center">
+    <!-- Wine Glass Column -->
+    <div class="drop-zone d-flex align-items-center" style="height: 220px;">
+      <img src="{{ url_for('static', filename='glass_outline.png') }}" alt="Wine Glass"
+           class="img-fluid" style="max-width: 180px;" />
     </div>
+  
+    <!-- Correct Notes Grid -->
+    <div class="correct-notes d-flex flex-wrap" style="width: 220px; padding-top: 10px; justify-content: start;">
+      <!-- Notes will be dynamically inserted here -->
+    </div>
+  </div>
 
-</div>
 
-<script>
+  </div>
+  
+  <!-- Summary layout (initially empty, filled by JS) -->
+  <div id="summary-layout"></div>
+  
+  <script>
+    const noteOptions = JSON.parse('{{ note_options | tojson | safe }}');
     const correctNotes = JSON.parse('{{ correct_notes | tojson | safe }}');
-</script>
-<script src="{{ url_for('static', filename='drag_drop.js') }}"></script>
+  </script>
+  <script src="{{ url_for('static', filename='drag_drop.js') }}"></script>
+  

@@ -32,9 +32,11 @@ function handleGuess(guess) {
     feedbackDesc.textContent = currentExplanation;
     overlay.style.display = "flex";
 
-    // Wait for user interaction (click or key press) to move to the next image
-    document.body.addEventListener("click", stack, { once: true });
-    document.body.addEventListener("keydown", stack, { once: true });
+    // Delay attaching listener to avoid instant trigger
+    setTimeout(() => {
+        document.body.addEventListener("click", stack, { once: true });
+        document.body.addEventListener("keydown", stack, { once: true });
+    }, 500); // Adjust delay as needed (ms)
 }
 
 function stack() {
@@ -76,7 +78,8 @@ function goToNext(img) {
                 const continueBtn = document.getElementById("continue-btn");
                 if (continueBtn) continueBtn.style.display = "inline-block";
                 feedbackDesc.textContent = "You've completed this round!";
-                img.style.opacity = "0.5";
+                // img.style.opacity = "0.5";
+                img.style.opacity = "0.0";
             } else {
                 console.log("Next image:", img);  // Check the image path
                 img.src = ""; // Clear the current image

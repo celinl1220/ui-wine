@@ -32,12 +32,13 @@ varietal_data = {
             1: {
                 "hint": "Riesling is **never heavy or brooding**. Think **juicy fruits**, **fresh blooms**, and **zippy citrus**.",
                 "hint_short": "Think **juicy fruits**, **fresh blooms**, and **zippy citrus**.",
-                "correct_notes": ["lemon", "peach", "apple"],
+                "note_options": ["lemon", "lime", "mushroom", "pineapple", "grass", "cedar", "apricot", "vanilla"],
+                "correct_notes": ["lemon", "lime", "pineapple", "apricot"],
             },
             2: {
                 "hint": "This wine is typically **pale straw to light gold**.",
                 "hint_short": "This wine is typically **pale straw to light gold**.",
-                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
+                "color_options": ["#F9F6D2", "#FAE1DC", "#ffbf6b", "#d42c48"],
                 "correct_index": 0
             },
             3: {
@@ -49,20 +50,22 @@ varietal_data = {
     "sauvignon_blanc": {
         "location": "Valley of Sauvignon Blanc",
         "title": "Welcome to the **Valley of Sauvignon Blanc**",
+        "descriptions": ["Sauvignon Blanc is fresh, green, and unapologetically zesty.", "Known for its high acidity and bold aromatics, this wine brings to mind citrus groves, cut grass, and cool ocean breezes.", "It's sharp, sassy, and always refreshing."],
         "varietal": "Sauvignon Blanc",
         "varietal_url": "sauvignon_blanc",
         "descriptions": ["Sauvignon Blanc is **fresh**, **green**, and unapologetically **zesty**.", "Known for its **high acidity** and **bold aromatics**, this wine brings to mind **citrus groves**, **cut grass**, and cool **ocean breezes**.", "It's **sharp**, **sassy**, and **always refreshing**."],
         "activities": {
             1: {
-                "hint": "Picture **green herbs**, **tropical bursts**, and a splash of **sharp citrus**.",
+                "hint": "Known for its **high acidity** and **bold aromatics**, this wine brings to mind **citrus** groves, cut **grass**, and cool **ocean breezes**. Picture **green herbs**, **tropical** bursts, and a splash of **sharp citrus**.",
                 "hint_short": "Picture **green herbs**, **tropical bursts**, and a splash of **sharp citrus**.",
-                "correct_notes": ["lemon", "peach", "apple"],
+                "note_options": ["grapefruit", "passionfruit", "leather", "apricot", "grass", "blackberry", "gooseberry", "vanilla"],
+                "correct_notes": ["grapefruit", "passionfruit", "gooseberry", "grass"],
             },
             2: {
                 "hint": "This wine is typically **pale straw with greenish glints**.",
                 "hint_short": "This wine is typically **pale straw with greenish glints**.",
-                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
-                "correct_index": 0
+                "color_options": ["#FFE3B3", "#e3747f", "#F4FCD9", "#ffbf6b"],
+                "correct_index": 2
             },
             3: {
                 "hint": "Sauvignon Blanc is perfect with **fresh, **zesty**, and **herbaceous** dishes.",
@@ -78,15 +81,16 @@ varietal_data = {
         "varietal_url": "chardonnay",
         "activities": {
             1: {
-                "hint": "TO UPDATE WITH CHARDONNAY",
-                "hint_short": "TO UPDATE WITH CHARDONNAY",
-                "correct_notes": ["lemon", "peach", "apple"],
+                "hint": "Think ripe pear, creamy vanilla, and a hint of toasted oak.",
+                "hint_short": "Think ripe pear, creamy vanilla, and a hint of toasted oak.",
+                "note_options": ["green_apple", "butter", "bell_pepper", "pineapple", "licorice", "toasted_almond", "black_pepper", "vanilla"],
+                "correct_notes": ["green_apple", "butter", "toasted_almond", "vanilla"],
             },
             2: {
                 "hint": "This wine ranges from **pale gold to rich, buttery yellow**.",
                 "hint_short": "This wine ranges from **pale gold to rich, buttery yellow**.",
-                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
-                "correct_index": 0
+                "color_options": ["#F4FCD9", "#e3747f", "#C9D4A5", "#E3DB94"],
+                "correct_index": 3,
             },
             3: {
                 "hint": "Chardonnay pairs wonderfully with **rich**, **creamy**, and **buttery** foods.",
@@ -102,15 +106,16 @@ varietal_data = {
         "varietal_url": "pinot_noir",
         "activities": {
             1: {
-                "hint": "TO UPDATE WITH PINOT NOIR",
-                "hint_short": "TO UPDATE WITH PINOT NOIR",
-                "correct_notes": ["lemon", "peach", "apple"],
+                "hint": "Pinot Noir is delicate, earthy, and quietly complex. Think soft spice and subtle floral notes.",
+                "hint_short": "Think soft spice and subtle floral notes.",
+                "note_options": ["cherry", "vanilla", "raspberry", "mushroom", "butter", "blackberry", "clove", "cinnamon"],
+                "correct_notes": ["cherry", "clove", "raspberry", "mushroom"],
             },
             2: {
                 "hint": "This wine is typically **light ruby to translucent garnet**.",
                 "hint_short": "This wine is typically **light ruby to translucent garnet**.",
-                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
-                "correct_index": 0
+                "color_options": ["#E3DB94", "#d49299", "#A42C2C", "#781F1F"],
+                "correct_index": 2
             },
             3: {
                 "hint": "Pinot Noir is a great match for **earthy**, **savory**, and subtly **spiced** dishes.",
@@ -126,15 +131,16 @@ varietal_data = {
         "varietal_url": "cabernet_sauvignon",
         "activities": {
             1: {
-                "hint": "TO UPDATE WITH CABERNET",
-                "hint_short": "TO UPDATE WITH CABERNET",
-                "correct_notes": ["lemon", "peach", "apple"],
+                "hint": "Cabernet Sauvignon is bold, structured, and unapologetically full-bodied. Think dark berries, dried leaves, and a touch of wood and smoke.",
+                "hint_short": "Think dark berries, dried leaves, and the fireplace.",
+                "note_options": ["tobacco", "butter", "peach", "black_currant", "cedar", "vanilla", "grass", "blackberry"],
+                "correct_notes": ["black_currant", "blackberry", "tobacco", "cedar"],
             },
             2: {
                 "hint": "This wine is **deep ruby to inky purple**, often nearly opaque.",
                 "hint_short": "This wine is **deep ruby to inky purple**, often nearly opaque.",
-                "color_options": ["#f5f3a8", "#f9caca", "#fce88b", "#f9f7e8"],
-                "correct_index": 0
+                "color_options": ["#F4FCD9", "#d49299", "#4B0F1C", "#9F1D35"],
+                "correct_index": 2
             },
             3: {
                 "hint": "Cabernet Sauvignon complements **hearty**, **grilled**, and **bold-flavored** meals.",
@@ -147,11 +153,11 @@ varietal_data = {
 activities = {
     1: {
         "name": "Drag and Drop the Notes",
-        "button": "Start Tapping",
-        "instructions": "**Tap** on the images that feel like {{ varietal_name }}. Avoid anything that doesn't match the vibe."
+        "button": "Start Dragging & Dropping",
+        "instructions": "**Drag and drop** the notes that feel like {{ varietal_name }} to the wine glass. Avoid anything that doesn't match the vibe."
     },
     2: {
-        "name": "Color Me",
+        "name": "Color the Correct Glass",
         "button": "Start Coloring",
         "instructions": "Which color looks most like a glass of {{ varietal_name }}?"
     },
@@ -442,6 +448,7 @@ def start_activity(varietal_name, activity_number):
         varietal_url=varietal["varietal_url"],
         hint=format_bold_text(varietal_activities["hint_short"]),
         current_food=current_food, # only for activity 3, 
+        note_options=varietal_activities.get("note_options", []),
         correct_notes=varietal_activities.get("correct_notes", []),
         color_options=varietal_activities.get("color_options", []),
         correct_index=varietal_activities.get("correct_index", 0),
