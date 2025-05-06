@@ -53,6 +53,8 @@ h1, h2 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
   color: var(--color-dark-grey);
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 /* Sub-titles and prompts */

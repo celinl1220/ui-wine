@@ -33,7 +33,7 @@
         <div class="map-contents" id="map-buttons">
             {% for v in varietals %}
             <form method="post" action="{{ url_for('varietal_intro', varietal_name=v) }}">
-                <button type="submit" class="btn-hero varietal-button" id="btn-{{ v }}" data-varietal="{{ v }}">
+                <button type="submit" class="btn-hero varietal-button" id="btn-{{ v }}" data-varietal="{{ v }}" style="background-image: url('/static/images/map/{{ v }}.png');">
                     {{ varietal_data[v]["location"] }}
                 </button>
             </form>

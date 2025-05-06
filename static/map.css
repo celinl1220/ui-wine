@@ -1,12 +1,42 @@
 #map-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, auto); /* 3 columns */
+    grid-auto-rows: auto;
+    gap: 5rem;
+    justify-content: center;
+    align-items: center;
     visibility: hidden;
+}
+
+#map-buttons form {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-hero.varietal-button {
+    height: 150px;
+    width: 200px;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s ease, box-shadow 0.2s ease;
+    /* z-index: 10; */
+}
+
+.btn-hero.varietal-button:hover {
+    transform: scale(1.05); /* Slight magnification */
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.7); /* Soft white glow */
 }
 
 .varietal-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
     filter: grayscale(100%);
-    pointer-events: none;
+    cursor: not-allowed;
 }
 
 .take-quiz-form {
