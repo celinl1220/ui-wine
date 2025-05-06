@@ -746,33 +746,6 @@ def next_food(varietal_name):
     })
     return render_template("activity_complete.html", varietal_name=varietal["varietal"], varietal_url=varietal["varietal_url"])
 
-@app.route("/next_food/<varietal_name>", methods=["GET", "POST"])
-def next_food(varietal_name):
-    varietal = varietal_data.get(varietal_name.lower())
-    if varietal_name not in activity3:
-        return jsonify({"error": "Invalid varietal"}), 400
-
-    # Initialize index if not in session
-    if "food_index" not in session:
-        session["food_index"] = 0
-    else:
-        session["food_index"] += 1
-
-    foods = activity3[varietal_name]
-    index = session["food_index"]
-
-    if index >= len(foods):
-        return jsonify({
-            "done": True
-        })
-
-    food = foods[index]
-    return jsonify({
-        "image": food["image"],
-        "explanation": food["explanation"],
-        "correct_answer": food["correct_answer"]
-    })
-
 @app.route("/quiz", methods=["GET", "POST"])
 def quiz_start():
     progress = session.get("progress", [])
