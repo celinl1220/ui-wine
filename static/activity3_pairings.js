@@ -16,10 +16,6 @@ var isCorrect;
 function handleGuess(guess) {
     if (waitingForNext || activityComplete) return;
     waitingForNext = true;
-
-    // Get current correct answer and explanation
-    // currentCorrectAnswer = foodDataEl.dataset.correct;
-    // currentExplanation = foodDataEl.dataset.explanation;
     isCorrect = guess === currentCorrectAnswer;
 
     // Display feedback
@@ -34,7 +30,6 @@ function handleGuess(guess) {
 
     // Delay attaching listener to avoid instant trigger
     setTimeout(() => {
-        document.body.addEventListener("click", stack, { once: true });
         document.body.addEventListener("keydown", stack, { once: true });
     }, 500); // Adjust delay as needed (ms)
 }
@@ -95,9 +90,6 @@ function goToNext(img) {
 }
 
 // Arrow and button controls
-document.getElementById("left-arrow").addEventListener("click", () => handleGuess("meh"));
-document.getElementById("right-arrow").addEventListener("click", () => handleGuess("good"));
-
 document.addEventListener("keydown", event => {
     if (event.key === "ArrowLeft") handleGuess("meh");
     else if (event.key === "ArrowRight") handleGuess("good");
