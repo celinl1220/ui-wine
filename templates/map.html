@@ -9,25 +9,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='map.css') }}">
 </head>
+{% extends "base.html" %}
 
+{% block title %}Vine Voyage — Home{% endblock %}
+
+{% block content %}
 <body>
     <div class="map-wrapper">
-        <div class="row">
-            <div class="col-md-1">
-                <!-- Back to map button -->
-                <form method="post" action="{{ url_for('home') }}">
-                    <button type="submit" class="btn-hero">home</button>
-                </form>
-            </div>
-            <div class="col-md-10"></div>
-            <div class="col-md-1">
-                {% if all_completed %}
-                  <form method="post" action="{{ url_for('quiz_start') }}">
-                    <button type="submit" class="btn-hero">Take Quiz</button>
-                  </form>
-                {% endif %}
-              </div>
-        </div>
         <h1 class="map-title">Realm Map</h1>
         <div id="loader">Loading...</div>
         <div class="map-contents" id="map-buttons">
@@ -50,5 +38,6 @@
     </script>
     <script src="{{ url_for('static', filename='map.js') }}"></script>
 </body>
+{% endblock %}
 
 </html>
