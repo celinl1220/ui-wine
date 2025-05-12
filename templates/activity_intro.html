@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+{% from "components.html" import progress_bar %}
+
 
 <head>
     <meta charset="UTF-8" />
@@ -12,6 +14,7 @@
 
 <body>
     <div class="activity-wrapper  container-fluid">
+        {{ progress_bar(activity_number) }}
         <div class="row my-3 align-items-left" style="min-height: 9vh;">
             <div class="col-md-2 d-flex justify-content-start">
                 <!-- Back to map button -->

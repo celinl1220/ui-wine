@@ -82,7 +82,7 @@ varietal_data = {
         "activities": {
             1: {
                 "hint": "Think ripe pear, creamy vanilla, and a hint of toasted oak.",
-                "hint_short": "Think ripe pear, creamy vanilla, and a hint of toasted oak.",
+                "hint_short": "Think **ripe pear**, **creamy vanilla**, and a hint of **toasted oak**.",
                 "note_options": ["green_apple", "butter", "bell_pepper", "pineapple", "licorice", "toasted_almond", "black_pepper", "vanilla"],
                 "correct_notes": ["green_apple", "butter", "toasted_almond", "vanilla"],
             },
@@ -551,7 +551,7 @@ quiz_questions = {
             {"label": "peach",          "image": "notes/peach.png",        "correct": False},
             {"label": "rosewater",      "image": "notes/rosewater.png",    "correct": False},
             {"label": "cedar",          "image": "notes/cedar.png",        "correct": True},
-            {"label": "blackcurrant",   "image": "notes/blackcurrant.png", "correct": True},
+            {"label": "blackcurrant",   "image": "notes/black_currant.png", "correct": True},
             {"label": "tobacco",        "image": "notes/tobacco.png",      "correct": True},
         ],
         "max_attempts": 4
