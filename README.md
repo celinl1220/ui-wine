@@ -30,13 +30,13 @@ Before you begin, ensure you have the following installed on your system:
     python3 app.py
     ```
 
-    If your `app.py` is set up to run the Flask development server (often within an `if __name__ == '__main__':` block), you should see output similar to this:
+    You should see output similar to this:
 
     ```
      * Serving Flask app 'app'
      * Debug mode: on
     WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
-     * Running on [http://127.0.0.1:5000](http://127.0.0.1:5000) (Press CTRL+C to quit)
+     * Running on [http://127.0.0.1:5001](http://127.0.0.1:5001) (Press CTRL+C to quit)
      * Restarting with stat
      * Debugger is active!
      * Debugger PIN: xxx-xxx-xxx
@@ -48,11 +48,7 @@ Before you begin, ensure you have the following installed on your system:
 
 ## Alternative Method (Using `flask run`)
 
-The `flask run` command is the officially recommended way to start the Flask development server and is more flexible for larger applications or those using application factories.
-
-1.  **Navigate to the application directory** (as described above).
-
-2.  **Set the Flask application environment variable:**
+1.  **Set the Flask application environment variable:**
     * **Linux and macOS:**
         ```bash
         export FLASK_APP=app.py
@@ -66,7 +62,7 @@ The `flask run` command is the officially recommended way to start the Flask dev
         $env:FLASK_APP = "app.py"
         ```
 
-3.  **Run the Flask development server:**
+2.  **Run the Flask development server:**
     ```bash
     flask run
     ```
