@@ -1,0 +1,13 @@
+{% macro progress_bar(current_step, total_steps=3) %}
+<div class="progress my-3" style="height: 8px;">
+    {% if current_step == 1 %}
+    <div class="progress-bar" role="progressbar" style="width: 0%; background-color: var(--color-accent); transition: width 0.6s ease;"></div>
+    {% elif current_step == 2 %}
+    <div class="progress-bar" role="progressbar" style="width: 33%; background-color: var(--color-accent); transition: width 0.6s ease;"></div>
+    {% elif current_step == 3 %}
+    <div class="progress-bar" role="progressbar" style="width: 66%; background-color: var(--color-accent); transition: width 0.6s ease;"></div>
+    {% elif current_step == 4 %}
+    <div class="progress-bar" role="progressbar" style="width: 100%; background-color: var(--color-accent); transition: width 0.6s ease;"></div>
+    {% endif %}
+</div>
+{% endmacro %}

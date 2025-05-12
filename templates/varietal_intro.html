@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+{% from "components.html" import progress_bar %}
+
 
 <head>
     <meta charset="UTF-8" />
@@ -16,6 +18,8 @@
 {% block content %}
 <body>
     <div class="riesling-wrapper">
+        {{ progress_bar(activity_number) }}
+
         <h1 class="riesling-title">{{ title }}</h1>
 
         {% for description in descriptions %}

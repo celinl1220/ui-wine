@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+{% from "components.html" import progress_bar %}
+
 
 <head>
     <meta charset="UTF-8" />
@@ -17,6 +19,7 @@
 {% block content %}
 <body>
     <div class="activity-wrapper  container-fluid">
+        {{ progress_bar(activity_number) }}
         <div class="text-center"><span class="varietal-label">{{ varietal_name }}</span></div>
         <h1 class="activity-title">{{ activity_name }}</h1>
         <p class="activity-instructions">{{ activity_instructions }}</p>
